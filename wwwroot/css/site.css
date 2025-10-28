@@ -18,5 +18,16 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #f9f0df;
 }
+
+
+
+/*
+Layout colors: 
+    --oxford-blue: #032240;
+    --old-lace: #f9f0df;
+    --orange-crayola: #e5723a;
+    --persian-green: #1ea896;
+*/
