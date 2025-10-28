@@ -4,7 +4,7 @@
     padding: 0;
     font-family: 'Open Sans', sans-serif;
 }
-body {
+/*body {
 
     background-image: url('/images/hero_plane.png');
     background-size: cover;
@@ -15,7 +15,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
-
+*/
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Oswald', sans-serif;
 }
