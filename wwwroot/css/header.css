@@ -62,9 +62,10 @@ nav{
     color: #fff;
 }
 
-.logoContainers {
+.logo-containers {
     display: flex;
     align-items: center;
+    justify-content:center;
 }
 .pgLogo {
     width: 3em;
@@ -73,6 +74,7 @@ nav{
     margin-right: 0.5em;
     object-fit: cover;
     flex-shrink: 0;
+    transform: translateY(0.15em);
 }
 .logoText {
     color: #f9f0dfff;
