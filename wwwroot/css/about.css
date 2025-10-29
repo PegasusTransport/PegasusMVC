@@ -10,6 +10,10 @@
     position: relative;
     text-align: center;
     overflow: hidden;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+    margin-top: -2rem
 }
 
 .about-hero-img {
@@ -20,7 +24,7 @@
 }
 
 .about-hero-overlay {
-    margin-top:-7em;
+    margin-top: -7em;
     position: absolute;
     inset: 0;
     display: flex;
@@ -30,7 +34,6 @@
     color: white;
     padding-inline: 2vw;
     text-align: center;
-    
 }
 
     .about-hero-overlay h1 {
@@ -51,20 +54,24 @@
     background-color: var(--old-lace);
     color: var(--oxford-blue);
     margin-top: 0;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
     padding-block: 5vh;
 }
 
 .about-container {
-    max-width: 60rem;
+    width: 100%;
     margin-inline: auto;
     padding-inline: 3vw;
 }
 
 .about-card {
     background-color: var(--orange-crayola);
-    border: 0.15em solid var(--oxford-blue);
-    border-radius: 0.8em;
+    border: none;
+    border-radius: 1.2em;
     overflow: hidden;
+    box-shadow: 0 0.5em 2em rgba(0, 0, 0, 0.15);
 }
 
 .about-card-body {
@@ -80,7 +87,8 @@
     object-fit: cover;
     object-position: 50% 15%;
     margin-block-end: 1.2rem;
-    border: 0.25em solid var(--oxford-blue);
+    border: none;
+    box-shadow: 0 0.3em 1em rgba(0, 0, 0, 0.2);
 }
 
 .about-card-body h5 {
@@ -93,15 +101,18 @@
     background-color: var(--oxford-blue);
     color: white;
     border: none;
-    border-radius: 0.4em;
-    padding: 0.6em 1.4em;
+    border-radius: 0.5em;
+    padding: 0.7em 1.6em;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 0.3em 1em rgba(0, 0, 0, 0.15);
 }
 
     .about-btn:hover {
         background-color: var(--persian-green);
+        transform: translateY(-2px);
+        box-shadow: 0 0.5em 1.5em rgba(0, 0, 0, 0.2);
     }
 
 /* RESPONSIVE ADJUSTMENTS */
