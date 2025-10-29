@@ -1,7 +1,12 @@
-﻿<header>
+﻿@{
+    var controller = ViewContext.RouteData.Values["Controller"]?.ToString();
+    var action = ViewContext.RouteData.Values["Action"]?.ToString();
+}
+
+<header>
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container-fluid px-lg-5 justify-content-center">
-           
+
             <a class="navbar-brand logo-containers" asp-controller="Home" asp-action="Index">
                 <img src="https://github.com/PegasusTransport/Pictures/blob/main/Pegasus_med_bakgrund.png?raw=true" class="pgLogo" alt="Pegasus Logo" />
                 <span class="logoText">PEGASUS TRANSPORT</span>
@@ -11,16 +16,18 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-        
-            <div class="collapse navbar-collapse"  id="navbarNav">
+
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto nav-link">
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">HOME</a>
+                        <a class="nav-link @(action == "Index" && controller == "Home" ? "active" : "")"
+                           asp-controller="Home" asp-action="Index">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="About">ABOUT</a>
+                        <a class="nav-link @(action == "About" ? "active" : "")"
+                           asp-controller="Home" asp-action="About">ABOUT</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" @(action == "About" ? "active" : "")>
                         <a class="nav-link" asp-controller="Home" asp-action="Index">CONTACT</a>
                     </li>
                     <li class="nav-item">
@@ -28,9 +35,10 @@
                     </li>
                 </ul>
 
-           
+
                 <div class="ms-auto">
-                    <a class="bookingLink" asp-controller="Booking" asp-action="Index">BOOKING</a>
+                    <a class="bookingLink @(controller == "Booking" ? "active" : "")"
+                       asp-controller="Booking" asp-action="Index">BOOKING</a>
                 </div>
             </div>
         </div>
