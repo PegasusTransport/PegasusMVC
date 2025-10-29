@@ -1,0 +1,125 @@
+:root {
+    --oxford-blue: #032240;
+    --old-lace: #f9f0df;
+    --orange-crayola: #e5723a;
+    --persian-green: #1ea896;
+}
+
+/* Navbar */
+.custom-navbar {
+    background: var(--oxford-blue) !important;
+    border-bottom: 1px solid rgba(0, 0, 0);
+    backdrop-filter: blur(15px);
+    padding: 1rem 0;
+    border-bottom: 0.18rem solid var(--orange-crayola);
+}
+
+/* Logo container */
+.logo-containers {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 0.5em;
+}
+
+.pgLogo {
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.logoText {
+    color: #f9f0df;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Nav links */
+.nav-link {
+    list-style: none;
+    gap: 2rem;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #f9f0df !important;
+    transition: 0.3s;
+    position: relative;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #e5723a !important;
+    text-shadow: 0 0 0.3em #1ea896;
+    transform: translateY(-0.1em);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--orange-crayola) !important;
+    padding-bottom: 0.3rem;
+}
+
+/* Booking button */
+.bookingLink {
+    text-decoration: none;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2em;
+    background: var(--orange-crayola);
+    color: #f9f0df;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(229, 114, 58, 0.3);
+    border: 2px solid transparent;
+    display: inline-block;
+}
+
+.bookingLink:hover {
+    background: linear-gradient(135deg, #d96228, #e5723a);
+    box-shadow: 0 4px 15px rgba(229, 114, 58, 0.5);
+    transform: translateY(-2px);
+    border-color: var(--persian-green);
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.bookingLink.active {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--persian-green);
+}
+
+.navbar-toggler {
+    border-color: var(--old-lace);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(249, 240, 223, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+@media (max-width: 991px) {
+    .navbar-nav {
+        margin-top: 1rem;
+        gap: 1rem;
+    }
+
+    .bookingLink {
+        margin-top: 1rem;
+    }
+
+}
+
+@media(max-width:500px) {
+    .logoText {
+        font-size: 0.8rem;
+    }
+
+    .pgLogo {
+        width: 2em;
+        height: 2em;
+    }
+}

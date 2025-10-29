@@ -7,79 +7,116 @@
 
 /* HERO */
 .about-hero {
-    position: absolute;
-    top: 56px;
-    left: 0;
-    right: 0;
+    position: relative;
     text-align: center;
+    overflow: hidden;
 }
 
 .about-hero-img {
     width: 100%;
-    height: 380px;
+    height: 45vh;
     object-fit: cover;
     filter: brightness(75%);
 }
 
 .about-hero-overlay {
+    margin-top:-7em;
     position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -20%);
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: white;
+    padding-inline: 2vw;
     text-align: center;
-    width: 100%;
-    padding: 0 15px;
+    
 }
 
     .about-hero-overlay h1 {
-        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+        text-shadow: 0 0.3em 1em rgba(0, 0, 0, 0.5);
+        font-size: clamp(1.8rem, 3vw + 1rem, 3.2rem);
+        line-height: 1.2;
     }
 
     .about-hero-overlay p {
-        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        text-shadow: 0 0.25em 0.8em rgba(0, 0, 0, 0.4);
         font-weight: 400;
+        font-size: clamp(1rem, 1.5vw + 0.5rem, 1.25rem);
+        max-width: 80ch;
     }
 
 /* ABOUT SECTION */
 .about-section {
     background-color: var(--old-lace);
     color: var(--oxford-blue);
-    margin-top: 380px;
+    margin-top: 0;
+    padding-block: 5vh;
 }
 
 .about-container {
-    max-width: 850px;
+    max-width: 60rem;
+    margin-inline: auto;
+    padding-inline: 3vw;
 }
 
 .about-card {
     background-color: var(--orange-crayola);
-    border: 2px solid var(--oxford-blue);
-    border-radius: 10px;
+    border: 0.15em solid var(--oxford-blue);
+    border-radius: 0.8em;
+    overflow: hidden;
 }
 
 .about-card-body {
-    color: #f9f0df;
+    color: var(--old-lace);
+    padding-block: 3rem;
+    padding-inline: 2rem;
 }
 
 .about-card-img {
-    width: 70px;
-    height: 70px;
+    width: 6em;
+    height: 6em;
     border-radius: 50%;
     object-fit: cover;
     object-position: 50% 15%;
-    margin-bottom: 15px;
-    border: 3px solid var(--oxford-blue);
+    margin-block-end: 1.2rem;
+    border: 0.25em solid var(--oxford-blue);
 }
 
 .about-card-body h5 {
     color: var(--oxford-blue);
+    font-size: 1.4rem;
+    margin-block-end: 1rem;
 }
 
 .about-btn {
     background-color: var(--oxford-blue);
     color: white;
     border: none;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
+    border-radius: 0.4em;
+    padding: 0.6em 1.4em;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .about-btn:hover {
+        background-color: var(--persian-green);
+    }
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 48em) {
+    .about-hero-img {
+        height: 38vh;
+    }
+
+    .about-card-body {
+        padding-inline: 1.5rem;
+        padding-block: 2rem;
+    }
+
+    .about-card-img {
+        width: 5em;
+        height: 5em;
+    }
 }
