@@ -1,23 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Kontakt";
+    ViewData["Title"] = "Contact";
 }
 
 <section class="contact-hero text-center">
     <div class="contact-hero-overlay">
-        <h1 class="display-4 fw-bold">Kontakta Oss</h1>
-        <p class="lead">Vi finns här för dig - hör av dig när som helst!</p>
+        <h1 class="display-4 fw-bold">Contact Us</h1>
+        <p class="lead">We're here for you - reach out anytime!</p>
     </div>
 </section>
 
 <section class="contact-section py-5">
     <div class="container">
         <div class="row g-4">
-            <!-- Kontaktinformation -->
+            <!-- Contact Information -->
             <div class="col-lg-5">
                 <div class="contact-info-card h-100">
                     <h2 class="fw-bold mb-4">Pegasus Transport</h2>
                     <p class="text-muted mb-4">
-                        Din pålitliga partner för resor till och från Arlanda. Vi finns tillgängliga för att svara på dina frågor och ta emot dina bokningar.
+                        Your reliable partner for trips to and from Arlanda. We're available to answer your questions and receive your bookings.
                     </p>
 
                     <div class="contact-info-item">
@@ -27,7 +27,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h5 class="mb-1">E-post</h5>
+                            <h5 class="mb-1">Email</h5>
                             <a href="mailto:info@pegasustransport.se">info@pegasustransport.se</a>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h5 class="mb-1">Telefon</h5>
+                            <h5 class="mb-1">Phone</h5>
                             <a href="tel:+46701234567">+46 70 123 45 67</a>
                         </div>
                     </div>
@@ -51,10 +51,10 @@
                             </svg>
                         </div>
                         <div>
-                            <h5 class="mb-1">Adress</h5>
+                            <h5 class="mb-1">Address</h5>
                             <p class="mb-0">
                                 Pegasus Transport AB<br>
-                                Arlanda Flygplatsväg 101<br>
+                                Arlanda Airport Road 101<br>
                                 190 45 Stockholm-Arlanda
                             </p>
                         </div>
@@ -67,65 +67,65 @@
                             </svg>
                         </div>
                         <div>
-                            <h5 class="mb-1">Öppettider</h5>
+                            <h5 class="mb-1">Hours</h5>
                             <p class="mb-0">
-                                Alla dagar: 00:00 - 23:59<br>
-                                <small class="text-muted">Boka i förväg för bästa tillgänglighet</small>
+                                Every day: 00:00 - 23:59<br>
+                                <small class="text-muted">Book in advance for best availability</small>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Kontaktformulär -->
+            <!-- Contact Form -->
             <div class="col-lg-7">
                 <div class="contact-form-card">
-                    <h2 class="fw-bold mb-4">Skicka ett Meddelande</h2>
+                    <h2 class="fw-bold mb-4">Send a Message</h2>
 
                     <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
-                        <!-- Ersätt med din egna Web3Forms Access Key -->
+                        <!-- Replace with your own Web3Forms Access Key -->
                         <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-                        <input type="hidden" name="subject" value="Nytt meddelande från Pegasus Transport webbplats">
-                        <input type="hidden" name="from_name" value="Pegasus Transport Kontaktformulär">
+                        <input type="hidden" name="subject" value="New message from Pegasus Transport website">
+                        <input type="hidden" name="from_name" value="Pegasus Transport Contact Form">
 
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="name" class="form-label">Namn *</label>
+                                <label for="name" class="form-label">Name *</label>
                                 <input type="text" class="form-control contact-input" id="name" name="name" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="email" class="form-label">E-post *</label>
+                                <label for="email" class="form-label">Email *</label>
                                 <input type="email" class="form-control contact-input" id="email" name="email" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="phone" class="form-label">Telefon</label>
+                                <label for="phone" class="form-label">Phone</label>
                                 <input type="tel" class="form-control contact-input" id="phone" name="phone">
                             </div>
                             <div class="col-md-6">
-                                <label for="subject" class="form-label">Ämne</label>
+                                <label for="subject" class="form-label">Subject</label>
                                 <select class="form-select contact-input" id="subject" name="message_subject">
-                                    <option value="">Välj ämne...</option>
-                                    <option value="Bokning">Bokning</option>
-                                    <option value="Fråga">Allmän fråga</option>
-                                    <option value="Återkoppling">Återkoppling</option>
-                                    <option value="Övrigt">Övrigt</option>
+                                    <option value="">Select subject...</option>
+                                    <option value="Booking">Booking</option>
+                                    <option value="Question">General Question</option>
+                                    <option value="Feedback">Feedback</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label for="message" class="form-label">Meddelande *</label>
+                                <label for="message" class="form-label">Message *</label>
                                 <textarea class="form-control contact-input" id="message" name="message" rows="5" required></textarea>
                             </div>
                             <div class="col-12">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="consent" name="consent" required>
                                     <label class="form-check-label" for="consent">
-                                        Jag samtycker till att mina uppgifter behandlas enligt GDPR *
+                                        I consent to my data being processed according to GDPR *
                                     </label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn contact-submit-btn">
-                                    <span class="btn-text">Skicka Meddelande</span>
+                                    <span class="btn-text">Send Message</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
                                     </svg>
@@ -143,9 +143,9 @@
         <div class="row mt-5">
             <div class="col-12">
                 <div class="map-container">
-                    <h2 class="fw-bold mb-4 text-center">Hitta Till Oss</h2>
+                    <h2 class="fw-bold mb-4 text-center">Find Us</h2>
                     <div class="map-wrapper">
-                        <!-- Ersätt med din faktiska Google Maps embed kod -->
+                        <!-- Replace with your actual Google Maps embed code -->
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2016.8516841766956!2d17.918625776899973!3d59.64976107460097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f9d7377b4f5c7%3A0x8b0de8d7f8d8a3ab!2sStockholm%20Arlanda%20Airport!5e0!3m2!1sen!2sse!4v1698765432100!5m2!1sen!2sse"
                                 width="100%"
                                 height="450"
@@ -172,7 +172,7 @@
             const object = Object.fromEntries(formData);
             const json = JSON.stringify(object);
 
-            result.innerHTML = '<div class="alert alert-info">Skickar meddelande...</div>';
+            result.innerHTML = '<div class="alert alert-info">Sending message...</div>';
 
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
@@ -185,7 +185,7 @@
             .then(async (response) => {
                 let json = await response.json();
                 if (response.status == 200) {
-                    result.innerHTML = '<div class="alert alert-success">Tack för ditt meddelande! Vi återkommer inom kort.</div>';
+                    result.innerHTML = '<div class="alert alert-success">Thank you for your message! We will get back to you shortly.</div>';
                     form.reset();
                 } else {
                     console.log(response);
@@ -194,7 +194,7 @@
             })
             .catch(error => {
                 console.log(error);
-                result.innerHTML = '<div class="alert alert-danger">Något gick fel. Försök igen senare.</div>';
+                result.innerHTML = '<div class="alert alert-danger">Something went wrong. Please try again later.</div>';
             })
             .then(function() {
                 setTimeout(() => {
