@@ -20,12 +20,19 @@ footer {
     flex-shrink: 0;
 }
 
-.pgLogoFooter:{
-
-}
 
 footer h6 {
     color: var(--old-lace);
-    box-shadow: 1em var(--orange-crayola);
 }
 
+
+footer p {
+    color: var(--old-lace);
+}
+
+@media(max-width:500px) {
+    .pgLogoFooter {
+        width: 7em;
+        height: 7em;
+    }
+}
