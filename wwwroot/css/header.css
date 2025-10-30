@@ -10,8 +10,8 @@
     background: var(--oxford-blue) !important;
     border-bottom: 1px solid rgba(0, 0, 0);
     backdrop-filter: blur(15px);
-    margin-bottom: 2rem;
     padding: 1rem 0;
+    border-bottom: 0.18rem solid var(--orange-crayola);
 }
 
 /* Logo container */
@@ -51,10 +51,16 @@
     position: relative;
 }
 
-    .navbar-nav .nav-link:hover {
-        color: #e5723a !important;
-        text-shadow: 0 0 0.3em #1ea896;
-    }
+.navbar-nav .nav-link:hover {
+    color: #e5723a !important;
+    text-shadow: 0 0 0.3em #1ea896;
+    transform: translateY(-0.1em);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--orange-crayola) !important;
+    padding-bottom: 0.3rem;
+}
 
 /* Booking button */
 .bookingLink {
@@ -71,14 +77,20 @@
     display: inline-block;
 }
 
-    .bookingLink:hover {
-        background: linear-gradient(135deg, #d96228, #e5723a);
-        box-shadow: 0 4px 15px rgba(229, 114, 58, 0.5);
-        transform: translateY(-2px);
-        border-color: var(--persian-green);
-        color: #fff;
-        text-decoration: none;
-    }
+.bookingLink:hover {
+    background: linear-gradient(135deg, #d96228, #e5723a);
+    box-shadow: 0 4px 15px rgba(229, 114, 58, 0.5);
+    transform: translateY(-2px);
+    border-color: var(--persian-green);
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.bookingLink.active {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--persian-green);
+}
 
 .navbar-toggler {
     border-color: var(--old-lace);
@@ -98,6 +110,7 @@
     .bookingLink {
         margin-top: 1rem;
     }
+
 }
 
 @media(max-width:500px) {

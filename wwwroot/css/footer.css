@@ -1,0 +1,38 @@
+:root {
+    --oxford-blue: #032240;
+    --old-lace: #f9f0df;
+    --orange-crayola: #e5723a;
+    --persian-green: #1ea896;
+}
+
+footer {
+    background-color: var(--oxford-blue);
+    color: black;
+    border-top: 0.18rem solid var(--orange-crayola);
+}
+
+
+.pgLogoFooter {
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+
+footer h6 {
+    color: var(--old-lace);
+}
+
+
+footer p {
+    color: var(--old-lace);
+}
+
+@media(max-width:500px) {
+    .pgLogoFooter {
+        width: 7em;
+        height: 7em;
+    }
+}
