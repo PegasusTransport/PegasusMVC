@@ -69,7 +69,6 @@
                             <h5 class="mb-1">Hours</h5>
                             <p class="mb-0">
                                 Every day: 00:00 - 23:59<br>
-                                <small class="text-muted">Book in advance for best availability</small>
                             </p>
                         </div>
                     </div>
@@ -80,7 +79,7 @@
                 <div class="contact-form-card">
                     <h2 class="fw-bold mb-4">Send a Message</h2>
 
-                    <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+                    <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" novalidate>
                         <input type="hidden" name="access_key" value="0ca25366-c8bb-4715-aba7-a6e3b3f1a64a">
                         <input type="hidden" name="subject" value="New message from Pegasus Transport website">
                         <input type="hidden" name="from_name" value="Pegasus Transport Contact Form">
@@ -88,16 +87,19 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="name" class="form-label">Name *</label>
-                                <input type="text" class="form-control contact-input" id="name" name="name" required>
+                                <input type="text" class="form-control contact-input" id="name" name="name" required minlength="2">
+                                <div class="invalid-feedback">Please enter your name (at least 2 characters).</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Email *</label>
                                 <input type="email" class="form-control contact-input" id="email" name="email" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="phone" class="form-label">Phone *</label>
-                                <input type="tel" class="form-control contact-input" id="phone" name="phone" pattern="^(\+46|0)[- ]?[1-9]\d{1,2}[- ]?\d{3}[- ]?\d{2}[- ]?\d{2}$" title="Please enter a valid Swedish phone number (e.g., +46 70 123 45 67 or 070-123 45 67)" required>
-                                <small class="text-muted">Format: +46 70 123 45 67 or 070-123 45 67</small>
+                                <input type="tel" class="form-control contact-input" id="phone" name="phone" required>
+                                <small class="text-muted">Format: +46701234567 or 0701234567</small>
+                                <div class="invalid-feedback">Please enter a valid Swedish phone number.</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="subject" class="form-label">Subject</label>
@@ -111,7 +113,8 @@
                             </div>
                             <div class="col-12">
                                 <label for="message" class="form-label">Message *</label>
-                                <textarea class="form-control contact-input" id="message" name="message" rows="5" required></textarea>
+                                <textarea class="form-control contact-input" id="message" name="message" rows="5" required minlength="10"></textarea>
+                                <div class="invalid-feedback">Please enter a message (at least 10 characters).</div>
                             </div>
                             <div class="col-12">
                                 <div class="form-check">
@@ -119,6 +122,7 @@
                                     <label class="form-check-label" for="consent">
                                         I consent to my data being processed according to GDPR *
                                     </label>
+                                    <div class="invalid-feedback">You must agree before submitting.</div>
                                 </div>
                             </div>
                             <div class="col-12">
