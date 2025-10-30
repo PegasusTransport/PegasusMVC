@@ -7,14 +7,12 @@
     const messageInput = document.getElementById('message');
     const consentInput = document.getElementById('consent');
 
-    function validateSwedishPhone(phone) {
+    function validatePhone(phone) {
         if (!phone) return false;
-        const cleaned = phone.replace(/[\s\-]/g, '');
-        const patterns = [
-            /^(\+46|0046)7[02369]\d{7}$/,
-            /^07[02369]\d{7}$/
-        ];
-        return patterns.some(pattern => pattern.test(cleaned));
+        const cleaned = phone.replace(/[\s\-\(\)\.]/g, '');
+        const pattern = /^(\+?\d{1,3})?[\s\-]?\(?\d{1,4}\)?[\s\-]?\d{1,4}[\s\-]?\d{1,4}[\s\-]?\d{1,9}$/;
+        const digitsOnly = cleaned.replace(/\D/g, '');
+        return pattern.test(phone) && digitsOnly.length >= 7 && digitsOnly.length <= 15;
     }
 
     function validateEmail(email) {
@@ -42,11 +40,11 @@
 
     if (phoneInput) {
         phoneInput.addEventListener('input', function () {
-            validateField(this, validateSwedishPhone);
+            validateField(this, validatePhone);
         });
 
         phoneInput.addEventListener('blur', function () {
-            validateField(this, validateSwedishPhone);
+            validateField(this, validatePhone);
         });
     }
 
@@ -112,7 +110,7 @@
                 isValid = false;
             }
 
-            if (!validateSwedishPhone(phoneInput.value)) {
+            if (!validatePhone(phoneInput.value)) {
                 phoneInput.classList.add('is-invalid');
                 isValid = false;
             }
