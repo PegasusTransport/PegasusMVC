@@ -27,8 +27,9 @@
                         <a class="nav-link @(action == "About" ? "active" : "")"
                            asp-controller="Home" asp-action="About">ABOUT</a>
                     </li>
-                    <li class="nav-item" @(action == "About" ? "active" : "")>
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">CONTACT</a>
+                    <li class="nav-item">
+                        <a class="nav-link @(action == "Contact" ? "active" : "")"
+                           asp-controller="Home" asp-action="Contact">CONTACT</a>
                     </li>
                     <li class="nav-item">
                         @* Add Vue login page link here later *@
