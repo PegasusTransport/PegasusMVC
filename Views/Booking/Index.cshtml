@@ -1,6 +1,83 @@
-﻿<div class="text-center">
-    <div class="mb-5"></div>
-    <span>Under construction...</span>
-    <div class="spinner-border" role="status">
+﻿@model CreateBookingVM
+
+<div class="booking-container">
+    <div class="booking-card">
+        <div class="booking-header">
+            <h2>Create New Booking</h2>
+            <p class="subtitle">Fill in your details below</p>
+        </div>
+
+        <form method="post" class="booking-form">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FirstName" class="form-label">First Name</label>
+                    <input asp-for="FirstName" class="form-control" placeholder="Enter first name" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="LastName" class="form-label">Last Name</label>
+                    <input asp-for="LastName" class="form-control" placeholder="Enter last name" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="your@email.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="+46 70-123 45 67" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PickUpDateTime" class="form-label">Pickup Time</label>
+                <input asp-for="PickUpDateTime" type="datetime-local" class="form-control" />
+                <span asp-validation-for="PickUpDateTime" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="PickUpAddress" class="form-label">Pickup Address</label>
+                    <input asp-for="PickUpAddress" class="form-control" placeholder="Street and number" />
+                    <span asp-validation-for="PickUpAddress" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DropOffAddres" class="form-label">Drop-off Address</label>
+                    <input asp-for="DropOffAddres" class="form-control" placeholder="Destination" />
+                    <span asp-validation-for="DropOffAddres" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Flightnumber" class="form-label">Flight Number</label>
+                <input asp-for="Flightnumber" class="form-control" placeholder="SK1234 (optional)" />
+                <span asp-validation-for="Flightnumber" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Comment" class="form-label">Comments</label>
+                <textarea asp-for="Comment" rows="4" class="form-control" placeholder="Additional information or requests..."></textarea>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+
+            <div class="form-footer">
+                <button type="submit" asp-action="Create" class="btn-submit">
+                    <span>Create Booking</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
+
+<style>
+
+</style>
