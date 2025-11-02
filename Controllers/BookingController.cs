@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Pegasus_MVC.Models;
+using Pegasus_MVC.ViewModels;
 
 namespace Pegasus_MVC.Controllers
 {

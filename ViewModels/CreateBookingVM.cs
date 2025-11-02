@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Pegasus_MVC.Models
+namespace Pegasus_MVC.ViewModels
 {
     public class CreateBookingVM
     {

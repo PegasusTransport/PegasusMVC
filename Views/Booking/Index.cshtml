@@ -1,4 +1,5 @@
-﻿@model CreateBookingVM
+﻿@using Pegasus_MVC.ViewModels
+@model CreateBookingVM
 
 <div class="booking-container">
     <div class="booking-card">
@@ -43,14 +44,81 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label asp-for="PickUpAddress" class="form-label">Pickup Address</label>
-                    <input asp-for="PickUpAddress" class="form-control" placeholder="Street and number" />
+                    <div class="position-relative">
+                        <input asp-for="PickUpAddress"
+                               id="PickUpAddress"
+                               class="form-control"
+                               placeholder="Street and number"
+                               autocomplete="off" />
+                        <div id="PickUpAddress-suggestions"
+                             class="address-suggestions list-group"
+                             style="display: none;">
+                        </div>
+                    </div>
                     <span asp-validation-for="PickUpAddress" class="text-danger"></span>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label asp-for="DropOffAddres" class="form-label">Drop-off Address</label>
-                    <input asp-for="DropOffAddres" class="form-control" placeholder="Destination" />
+                    <div class="position-relative">
+                        <input asp-for="DropOffAddres"
+                               id="DropOffAddres"
+                               class="form-control"
+                               placeholder="Destination"
+                               autocomplete="off" />
+                        <div id="DropOffAddres-suggestions"
+                             class="address-suggestions list-group"
+                             style="display: none;">
+                        </div>
+                    </div>
                     <span asp-validation-for="DropOffAddres" class="text-danger"></span>
                 </div>
+            </div>
+
+            @* extra stopps *@
+            <div class="col-md-6 mb-3" id="optionalField1" style="display: none;">
+                <label asp-for="FirstStop" class="form-label">First Stop</label>
+                <div class="position-relative">
+                    <input asp-for="FirstStop"
+                           id="FirstStop"
+                           class="form-control"
+                           placeholder="Street and number"
+                           autocomplete="off" />
+                    <div id="FirstStop-suggestions"
+                         class="address-suggestions list-group"
+                         style="display: none;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3" id="optionalField2" style="display: none;">
+                <label asp-for="SecStop" class="form-label">Sec Stop</label>
+                <div class="position-relative">
+                    <input asp-for="SecStop"
+                           id="SecStop"
+                           class="form-control"
+                           placeholder="Street and number"
+                           autocomplete="off" />
+                    <div id="SecStop-suggestions"
+                         class="address-suggestions list-group"
+                         style="display: none;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3" id="optionalField3" style="display: none;">
+                <label asp-for="ThirdStop" class="form-label">Third Stop</label>
+                <div class="position-relative">
+                    <input asp-for="ThirdStop"
+                           id="ThirdStop"
+                           class="form-control"
+                           placeholder="Street and number"
+                           autocomplete="off" />
+                    <div id="ThirdStop-suggestions"
+                         class="address-suggestions list-group"
+                         style="display: none;">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" id="AddStopBtn" class="btn btn-secondary mb-3">Add stop</button>
             </div>
 
             <div class="mb-3">
@@ -77,7 +145,3 @@
         </form>
     </div>
 </div>
-
-<style>
-
-</style>
