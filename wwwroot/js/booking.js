@@ -1,6 +1,7 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     initAutocomplete('PickUpAddress');
-    initAutocomplete('DropOffAddres');
+    initAutocomplete('DropOffAddress');
+
     let stops = 0;
     document.getElementById('AddStopBtn').addEventListener('click', function () {
         stops++;
@@ -40,10 +41,10 @@ async function initAutocomplete(id) {
                 });
 
                 const data = await response.json();
+                const suggestionList = data.data?.suggestions || [];
 
                 suggestions.innerHTML = '';
 
-                const suggestionList = data.data?.suggestions || data.suggestions || [];
                 if (suggestionList.length === 0) {
                     suggestions.style.display = 'none';
                     return;
@@ -51,17 +52,28 @@ async function initAutocomplete(id) {
 
                 suggestionList.forEach(s => {
                     const div = document.createElement('div');
-                    div.textContent = s;
+                    div.textContent = s.description;
+                    div.onclick = async () => {
+                        input.value = s.description;
+                        input.dataset.placeId = s.placeId;
+                        suggestions.style.display = 'none';
+                        token = generateToken();
+
+                        const placeIdField = document.getElementById(id + "PlaceId");
+                        if (placeIdField) {
+                            placeIdField.value = s.placeId;  
+                        }
+
+                        await sendPlaceDetail(token, s.placeId, placeIdField);
+                        console.log(input.value)
+                        console.log(s.placeId)
+                    };
                     div.style.padding = '10px';
                     div.style.cursor = 'pointer';
                     div.style.borderBottom = '1px solid #eee';
                     div.onmouseover = () => div.style.background = '#f0f0f0';
                     div.onmouseout = () => div.style.background = 'white';
-                    div.onclick = () => {
-                        input.value = s;
-                        suggestions.style.display = 'none';
-                        token = generateToken();
-                    };
+                    
                     suggestions.appendChild(div);
                 });
 
@@ -73,12 +85,28 @@ async function initAutocomplete(id) {
     });
 }
 
+async function sendPlaceDetail(sessionToken, placeId, placeIdField) {
+    const params = new URLSearchParams({
+        placeId: placeId,
+        sessionToken: sessionToken
+    });
+
+    const baseUrl = "https://localhost:7161/api/Map/GetLongNLat";
+    const url = `${baseUrl}?${params.toString()}`;
+
+    const response = await fetch(url, {
+     
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    });
+    const data = await response.json();
+}
+
 function generateToken() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
         const r = Math.random() * 16 | 0;
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
 }
-
 
 //https://localhost:7161/api/Map/AutoComplete

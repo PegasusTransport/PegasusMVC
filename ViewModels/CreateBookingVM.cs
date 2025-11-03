@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace Pegasus_MVC.ViewModels
 {
     public class CreateBookingVM
@@ -17,13 +16,23 @@ namespace Pegasus_MVC.ViewModels
         [Required(ErrorMessage = "Need a pickup time")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PickUpDateTime { get; set; } = DateTime.UtcNow;
+
         [Required(ErrorMessage = "Need a pickup addres")]
         public string PickUpAddress { get; set; } = null!;
-        public string? FirstStop {  get; set; }
-        public string? SecStop {  get; set; }
-        public string? ThirdStop {  get; set; }
+        public string PickUpAddressPlaceId { get; set; } = null!;  
+
+        public string? FirstStop { get; set; }
+        public string? FirstStopPlaceId { get; set; } 
+
+        public string? SecStop { get; set; }
+        public string? SecStopPlaceId { get; set; } 
+
+        public string? ThirdStop { get; set; }
+        public string? ThirdStopPlaceId { get; set; } 
+
         [Required(ErrorMessage = "Need a dropoff addres")]
-        public string DropOffAddres { get; set; } = null!;
+        public string DropOffAddress { get; set; } = null!;
+        public string DropOffAddressPlaceId { get; set; } = null!; 
         public string? Flightnumber { get; set; }
         [StringLength(300)]
         public string? Comment { get; set; }
