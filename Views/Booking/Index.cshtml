@@ -50,7 +50,9 @@
                                class="form-control"
                                placeholder="Street and number"
                                autocomplete="off" />
-                       <input asp-for="PickUpAddressPlaceId" type="hidden" id="PickUpAddressPlaceId" name="PickUpAddressPlaceId" />
+                        <input asp-for="PickUpAddressPlaceId" type="hidden" id="PickUpAddressPlaceId" />
+                        <input asp-for="PickUpLatitude" type="hidden" id="PickUpLatitude" />
+                        <input asp-for="PickUpLongitude" type="hidden" id="PickUpLongitude" />
                         <div id="PickUpAddress-suggestions"
                              class="address-suggestions list-group"
                              style="display: none;">
@@ -66,7 +68,9 @@
                                class="form-control"
                                placeholder="Destination"
                                autocomplete="off" />
-                        <input asp-for="DropOffAddressPlaceId" type="hidden" id="DropOffAddressPlaceId" name="DropOffAddressPlaceId" />
+                        <input asp-for="DropOffAddressPlaceId" type="hidden" id="DropOffAddressPlaceId" />
+                        <input asp-for="DropOffLatitude" type="hidden" id="DropOffLatitude" />
+                        <input asp-for="DropOffLongitude" type="hidden" id="DropOffLongitude" />
                         <div id="DropOffAddress-suggestions"
                              class="address-suggestions list-group"
                              style="display: none;">
@@ -85,7 +89,9 @@
                            class="form-control"
                            placeholder="Street and number"
                            autocomplete="off" />
-                    <input asp-for="FirstStopPlaceId" type="hidden" id="FirstStopPlaceId" name="FirstStopPlaceId" />
+                    <input asp-for="FirstStopPlaceId" type="hidden" id="FirstStopPlaceId" />
+                    <input asp-for="FirstStopLatitude" type="hidden" id="FirstStopLatitude" />
+                    <input asp-for="FirstStopLongitude" type="hidden" id="FirstStopLongitude" />
                     <div id="FirstStop-suggestions"
                          class="address-suggestions list-group"
                          style="display: none;">
@@ -100,23 +106,10 @@
                            class="form-control"
                            placeholder="Street and number"
                            autocomplete="off" />
-                    <input asp-for="SecStopPlaceId" type="hidden" id="SecStopPlaceId" name="SecStopPlaceId" />
+                    <input asp-for="SecStopPlaceId" type="hidden" id="SecStopPlaceId" />
+                    <input asp-for="SecStopLatitude" type="hidden" id="SecStopLatitude" />
+                    <input asp-for="SecStopLongitude" type="hidden" id="SecStopLongitude" />
                     <div id="SecStop-suggestions"
-                         class="address-suggestions list-group"
-                         style="display: none;">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3" id="optionalField3" style="display: none;">
-                <label asp-for="ThirdStop" class="form-label">Third Stop</label>
-                <div class="position-relative">
-                    <input asp-for="ThirdStop"
-                           id="ThirdStop"
-                           class="form-control"
-                           placeholder="Street and number"
-                           autocomplete="off" />
-                    <input asp-for="ThirdStopPlaceId" type="hidden" id="ThirdStopPlaceId" name="ThirdStopPlaceId" />
-                    <div id="ThirdStop-suggestions"
                          class="address-suggestions list-group"
                          style="display: none;">
                     </div>

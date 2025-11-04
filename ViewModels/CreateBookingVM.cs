@@ -14,7 +14,7 @@ namespace Pegasus_MVC.ViewModels
         [Phone]
         public string PhoneNumber { get; set; } = null!;
         [Required(ErrorMessage = "Need a pickup time")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
         public DateTime PickUpDateTime { get; set; } = DateTime.UtcNow;
 
         [Required(ErrorMessage = "Need a pickup addres")]
@@ -26,9 +26,6 @@ namespace Pegasus_MVC.ViewModels
 
         public string? SecStop { get; set; }
         public string? SecStopPlaceId { get; set; } 
-
-        public string? ThirdStop { get; set; }
-        public string? ThirdStopPlaceId { get; set; } 
 
         [Required(ErrorMessage = "Need a dropoff addres")]
         public string DropOffAddress { get; set; } = null!;

@@ -11,16 +11,13 @@
         } else if (stops === 2) {
             document.getElementById('optionalField2').style.display = 'block';
             initAutocomplete('SecStop');
-        } else if (stops === 3) {
-            document.getElementById('optionalField3').style.display = 'block';
-            initAutocomplete('ThirdStop');
             this.disabled = true;
         }
     });
 });
 
 async function initAutocomplete(id) {
-    let token = generateToken();
+    let token = crypto.randomUUID();
     const input = document.getElementById(id);
     const suggestions = document.getElementById(id + '-suggestions');
     let timeout;
@@ -57,14 +54,15 @@ async function initAutocomplete(id) {
                         input.value = s.description;
                         input.dataset.placeId = s.placeId;
                         suggestions.style.display = 'none';
-                        token = generateToken();
-
+                     
+                        console.log(token);
                         const placeIdField = document.getElementById(id + "PlaceId");
                         if (placeIdField) {
                             placeIdField.value = s.placeId;  
                         }
 
-                        await sendPlaceDetail(token, s.placeId, placeIdField);
+                        await sendPlaceDetail(token, s.placeId, placeIdField); 
+                        token = crypto.randomUUID();
                         console.log(input.value)
                         console.log(s.placeId)
                     };
@@ -81,10 +79,10 @@ async function initAutocomplete(id) {
             } catch (error) {
                 console.error('Error:', error);
             }
-        }, 300);
+        }, 800);
     });
 }
-
+// FIX TO SET LNT AND LONG TO INPUT VALUE
 async function sendPlaceDetail(sessionToken, placeId, placeIdField) {
     const params = new URLSearchParams({
         placeId: placeId,
@@ -100,13 +98,14 @@ async function sendPlaceDetail(sessionToken, placeId, placeIdField) {
         headers: { 'Content-Type': 'application/json' },
     });
     const data = await response.json();
-}
 
-function generateToken() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        const r = Math.random() * 16 | 0;
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
+    const Coordinates = {
+        Latitude: data.data.latitude,
+        Longitude: data.data.longitude
+    }
+
+
+    console.log("Coordinates:", Coordinates);
 }
 
 //https://localhost:7161/api/Map/AutoComplete
