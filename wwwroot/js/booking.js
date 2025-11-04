@@ -60,7 +60,7 @@ async function initAutocomplete(id) {
                         if (placeIdField) {
                             placeIdField.value = s.placeId;  
                         }
-
+                        console.log(placeIdField.id)
                         await sendPlaceDetail(token, s.placeId, placeIdField); 
                         token = crypto.randomUUID();
                         console.log(input.value)
@@ -98,6 +98,16 @@ async function sendPlaceDetail(sessionToken, placeId, placeIdField) {
         headers: { 'Content-Type': 'application/json' },
     });
     const data = await response.json();
+
+    const latField = document.getElementById(placeIdField.id.replace("PlaceId", "Latitude"));
+    const lonField = document.getElementById(placeIdField.id.replace("PlaceId", "Longitude"));
+
+    latField.value = data.data.latitude;
+    lonField.value = data.data.longitude;
+
+    // Remove later just for debugg
+    console.log(latField.value)
+    console.log(lonField.value)
 
     const Coordinates = {
         Latitude: data.data.latitude,
