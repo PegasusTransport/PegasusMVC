@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Pegasus_MVC.DTO;
 using Pegasus_MVC.ViewModels;
+using System.Globalization;
 
 namespace Pegasus_MVC.Controllers
 {
@@ -16,7 +18,20 @@ namespace Pegasus_MVC.Controllers
         [HttpPost]
         public IActionResult Create(CreateBookingVM createBooking)
         {
-            if(createBooking.PickUpDateTime < DateTime.UtcNow.AddHours(48))
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                // Lägg till alla fel som ett generellt meddelande så du ser dem
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+            if (createBooking.PickUpDateTime < DateTime.UtcNow.AddHours(48))
             {
                 ModelState.AddModelError(nameof(createBooking.PickUpDateTime),
                     "Pickup date must be at least 48 hours from now.");
@@ -26,8 +41,12 @@ namespace Pegasus_MVC.Controllers
             {
                 return View("Index", createBooking);
             }
+            // REFACTOR LATER TO SERVICE LAYER
+            // DOnt forgot IDo key in header
 
-            return RedirectToAction("ConfirmedBooking");
+            
+
+            return View("ConfirmedBooking", createBooking);
         }
     }
 }

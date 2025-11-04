@@ -1,3 +1,5 @@
+using Pegasus_MVC.Services;
+
 namespace Pegasus_MVC
 {
     public class Program
@@ -8,6 +10,8 @@ namespace Pegasus_MVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IBookingService, BookingService>();
+
 
             var app = builder.Build();
 

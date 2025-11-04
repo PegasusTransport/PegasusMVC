@@ -9,6 +9,7 @@
         </div>
 
         <form method="post" class="booking-form">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label asp-for="FirstName" class="form-label">First Name</label>
@@ -143,3 +144,7 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/booking.js"></script>
+}
