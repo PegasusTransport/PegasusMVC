@@ -1,52 +1,61 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Pegasus_MVC.DTO;
+using Pegasus_MVC.Services;
 using Pegasus_MVC.ViewModels;
 using System.Globalization;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Pegasus_MVC.Controllers
 {
-    public class BookingController : Controller
+    public class BookingController(IBookingService bookingService, IHttpClientFactory httpClient, IValidator<CreateBookingVM> validator, ILogger<BookingController> logger) : Controller
     {
+        private readonly HttpClient _httpClient = httpClient.CreateClient("PegasusServer");
+
         public IActionResult Index()
         {
             return View(new CreateBookingVM());
         }
-        public IActionResult ConfirmedBooking()
+        public IActionResult ConfirmAndSendBooking()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Create(CreateBookingVM createBooking)
+        public async Task<IActionResult> Create(CreateBookingVM createBooking)
         {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values
-                    .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
+            var results = await validator.ValidateAsync(createBooking);
 
-                // Lägg till alla fel som ett generellt meddelande så du ser dem
-                foreach (var error in errors)
-                {
-                    ModelState.AddModelError("", error);
-                }
-            }
-            if (createBooking.PickUpDateTime < DateTime.UtcNow.AddHours(48))
+  
+            foreach (var error in results.Errors)
             {
-                ModelState.AddModelError(nameof(createBooking.PickUpDateTime),
-                    "Pickup date must be at least 48 hours from now.");
+                logger.LogError(error.ErrorMessage);
+                ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
             }
+
+            if (!bookingService.CheckArlandaRequirement(createBooking))
+            {
+                ModelState.AddModelError("ArlandaRequirement", "One address needs to be Arlanda, if pickup address is Arlanda flight number is requierd");
+            }
+
 
             if (!ModelState.IsValid)
             {
                 return View("Index", createBooking);
             }
-            // REFACTOR LATER TO SERVICE LAYER
-            // DOnt forgot IDo key in header
-
             
+            var booking = await bookingService.CreateBookingAsync(createBooking);
 
-            return View("ConfirmedBooking", createBooking);
+
+            logger.LogInformation($"Booking created with status code: {booking.StatusCode}");
+
+            if (booking.StatusCode != HttpStatusCode.OK)
+            {
+                ViewBag.ErrorMessage = "Bookning didnt send";
+                return View("Index", createBooking);
+            }
+
+            return View("ConfirmAndSendBooking", booking.Data);
         }
     }
 }

@@ -1,0 +1,63 @@
+﻿@using Pegasus_MVC.DTO
+@model CreateBookingDto
+
+<div style="max-width: 800px; margin: 40px auto; padding: 20px; font-family: Arial, sans-serif;">
+    <h2 style="color: #28a745; border-bottom: 2px solid #28a745; padding-bottom: 10px;">
+        ✓ BOKNINGSBEKRÄFTELSE
+    </h2>
+
+    <form action="/" method="post">
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="margin-top: 0;">Kunduppgifter</h3>
+            <p><strong>Namn:</strong> @Model.FirstName @Model.LastName</p>
+            <p><strong>E-post:</strong> @Model.Email</p>
+            <p><strong>Telefon:</strong> @Model.PhoneNumber</p>
+        </div>
+
+        <div style="background: #fff; padding: 20px; border: 1px solid #dee2e6; border-radius: 8px; margin: 20px 0;">
+            <h3 style="margin-top: 0;">Reseinformation</h3>
+
+            <p><strong>📅 Upphämtning:</strong> @Model.PickUpDateTime.ToString("yyyy-MM-dd HH:mm")</p>
+            <p><strong>📍 Från:</strong> @Model.PickUpAddress</p>
+
+            @if (!string.IsNullOrEmpty(Model.FirstStopAddress))
+            {
+                <p><strong>🛑 Stopp 1:</strong> @Model.FirstStopAddress</p>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.SecondStopAddress))
+            {
+                <p><strong>🛑 Stopp 2:</strong> @Model.SecondStopAddress</p>
+            }
+
+            <p><strong>🏁 Till:</strong> @Model.DropOffAddress</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.Flightnumber) || !string.IsNullOrEmpty(Model.Comment))
+        {
+            <div style="background: #e7f3ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="margin-top: 0;">Övrig information</h3>
+
+                @if (!string.IsNullOrEmpty(Model.Flightnumber))
+                {
+                    <p><strong>✈️ Flygnummer:</strong> @Model.Flightnumber</p>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Comment))
+                {
+                    <p><strong>💬 Kommentar:</strong> @Model.Comment</p>
+                }
+            </div>
+        }
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a asp-controller="Home" asp-action="Index"
+               style="display: inline-block; padding: 12px 30px; background: #007bff; color: white;
+                  text-decoration: none; border-radius: 5px; font-weight: bold;">
+                ← Tillbaka till startsidan
+            </a>
+        </div>
+    
+    </form>
+   
+</div>
