@@ -82,7 +82,7 @@ async function initAutocomplete(id) {
         }, 800);
     });
 }
-// FIX TO SET LNT AND LONG TO INPUT VALUE
+
 async function sendPlaceDetail(sessionToken, placeId, placeIdField) {
     const params = new URLSearchParams({
         placeId: placeId,
@@ -118,4 +118,6 @@ async function sendPlaceDetail(sessionToken, placeId, placeIdField) {
     console.log("Coordinates:", Coordinates);
 }
 
-//https://localhost:7161/api/Map/AutoComplete
+function ShowPreview() {
+
+}

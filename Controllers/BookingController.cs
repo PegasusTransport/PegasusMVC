@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Pegasus_MVC.DTO;
 using Pegasus_MVC.Services;
@@ -20,6 +21,37 @@ namespace Pegasus_MVC.Controllers
         public IActionResult ConfirmAndSendBooking()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Preview(CreateBookingVM createBooking)
+        {
+            var results = await validator.ValidateAsync(createBooking);
+
+            foreach (var error in results.Errors)
+            {
+                logger.LogError(error.ErrorMessage);
+                ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            }
+
+            if (!bookingService.CheckArlandaRequirement(createBooking))
+            {
+                ModelState.AddModelError("ArlandaRequirement", "One address needs to be Arlanda, if pickup address is Arlanda flight number is requierd");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("Index", createBooking);
+            }
+
+            var previewResponse = await bookingService.GetPreview(createBooking);
+
+            if (previewResponse.StatusCode != HttpStatusCode.OK)
+            {
+                ViewBag.ErrorMessage = "Could not load preview";
+                return View("Index", createBooking);
+            }
+
+            return PartialView("_BookingPreview", previewResponse.Data);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateBookingVM createBooking)
