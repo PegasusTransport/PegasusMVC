@@ -25,7 +25,32 @@ namespace Pegasus_MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Preview(CreateBookingVM createBooking)
         {
-            throw new NotImplementedException();
+            try
+            {
+                logger.LogInformation("Preview called with PickUp: {PickUp}, DropOff: {DropOff}",
+                    createBooking.PickUpAddress, createBooking.DropOffAddress);
+
+                var previewResponse = await bookingService.GetPreview(createBooking);
+
+                if (previewResponse.StatusCode != HttpStatusCode.OK || previewResponse.Data == null)
+                {
+                    logger.LogWarning("Failed to get preview data. Status: {Status}", previewResponse.StatusCode);
+                    return Content("<div class='alert alert-danger'>Could not load preview. Please try again.</div>");
+                }
+
+                // VIKTIGT - LOGGA DATA SOM KOMMER TILLBAKA
+                logger.LogInformation("Preview data: Distance={Distance}, Duration={Duration}, Price={Price}",
+                    previewResponse.Data.DistanceKm,
+                    previewResponse.Data.DurationMinutes,
+                    previewResponse.Data.Price);
+
+                return PartialView("_BookingPreview", previewResponse.Data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in Preview action");
+                return Content($"<div class='alert alert-danger'>Error: {ex.Message}</div>");
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateBookingVM createBooking)

@@ -142,6 +142,13 @@
             </div>
 
             <div class="form-footer">
+                <button type="button" class="btn btn-primary btn-sm me-2" id="openPopup">
+                    <span>Preview Booking</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
                 <button type="submit" asp-action="Create" class="btn-submit btn-sm">
                     <span>Create Booking</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -151,10 +158,69 @@
                 </button>
             </div>
         </form>
-
     </div>
 </div>
-
+<div id="popupContainer"></div>
 @section Scripts {
     <script src="~/js/booking.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#openPopup').click(function() {
+           
+                $('#popupContainer').html('<div class="text-center p-5"><div class="spinner-border text-primary" role="status"></div></div>');
+
+                var formData = {
+                    FirstName: $('#FirstName').val(),
+                    LastName: $('#LastName').val(),
+                    Email: $('#Email').val(),
+                    PhoneNumber: $('#PhoneNumber').val(),
+                    PickUpDateTime: $('#PickUpDateTime').val(),
+                    PickUpAddress: $('#PickUpAddress').val(),
+                    PickUpLatitude: $('#PickUpAddressLatitude').val(),      
+                    PickUpLongitude: $('#PickUpAddressLongitude').val(),    
+                    DropOffAddress: $('#DropOffAddress').val(),
+                    DropOffLatitude: $('#DropOffAddressLatitude').val(),    
+                    DropOffLongitude: $('#DropOffAddressLongitude').val(),  
+                    FirstStop: $('#FirstStop').val() || null,
+                    FirstStopLatitude: $('#FirstStopLatitude').val() || null,
+                    FirstStopLongitude: $('#FirstStopLongitude').val() || null,
+                    SecStop: $('#SecStop').val() || null,
+                    SecStopLatitude: $('#SecStopLatitude').val() || null,
+                    SecStopLongitude: $('#SecStopLongitude').val() || null,
+                    Flightnumber: $('#Flightnumber').val() || null,
+                    Comment: $('#Comment').val() || null
+                };
+
+                console.log("Form data being sent:", formData); 
+
+                
+                $.ajax({
+                    url: '@Url.Action("Preview", "Booking")',
+                    type: 'POST',
+                    data: formData,
+                    success: function(result) {
+                        
+                        $('#popupContainer').html(result);
+
+
+                        var modal = new bootstrap.Modal(document.getElementById('bookingPreviewModal'));
+                        modal.show();
+                    },
+                    error: function(xhr, status, error) {
+                        $('#popupContainer').html('<div class="alert alert-danger">Error loading preview: ' + error + '</div>');
+                        console.error('Preview error:', xhr.responseText);
+                    }
+                });
+            });
+        });
+
+       
+        function confirmBooking(e) {
+            e.prevent.default;
+            var modal = bootstrap.Modal.getInstance(document.getElementById('bookingPreviewModal'));
+            modal.hide();
+
+            $('form').submit();
+        }
+    </script>
 }
