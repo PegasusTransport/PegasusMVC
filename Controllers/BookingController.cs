@@ -11,10 +11,9 @@ using System.Threading.Tasks;
 
 namespace Pegasus_MVC.Controllers
 {
-    public class BookingController(IBookingService bookingService, IHttpClientFactory httpClient, IValidator<CreateBookingVM> validator, ILogger<BookingController> logger) : Controller
+    public class BookingController(IBookingService bookingService, IValidator<CreateBookingVM> validator) : Controller
     {
-        private readonly HttpClient _httpClient = httpClient.CreateClient("PegasusServer");
-
+        
         public IActionResult Index()
         {
             return View(new CreateBookingVM());
