@@ -7,8 +7,9 @@ namespace Pegasus_MVC.Services
 {
     public interface IBookingService
     {
-        Task<ServiceResponse<CreateBookingDto>> CreateBookingAsync(CreateBookingVM newBooking);
+        Task<ServiceResponse<CreateBookingDto>> CreateBookingAsync(CreateBookingDto newBooking);
         Task<ServiceResponse<BookingPreviewVM>> GetPreview(CreateBookingVM bookingRequest);
+        CreateBookingDto CreateBookingDto(CreateBookingVM createBooking);
         public bool CheckArlandaRequirement(CreateBookingVM bookingDto);
     }
 }

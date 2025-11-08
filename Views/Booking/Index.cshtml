@@ -7,10 +7,12 @@
             <h2 class="h4">Create New Booking</h2>
             <p class="subtitle small">Fill in your details below</p>
         </div>
+
         @if (ViewBag.ErrorMessage != null)
         {
             <div class="alert alert-danger py-2">@ViewBag.ErrorMessage</div>
         }
+
         @if (ViewData.ModelState.ContainsKey("ArlandaRequirement"))
         {
             <div class="alert alert-danger py-2 mb-3">
@@ -18,7 +20,8 @@
                 @ViewData.ModelState["ArlandaRequirement"]?.Errors.First().ErrorMessage
             </div>
         }
-        <form method="post" class="booking-form">
+
+        <form asp-controller="Booking" asp-action="Create" method="post" id="bookingForm" class="booking-form">
             <div class="row">
                 <div class="col-md-6 mb-2">
                     <label asp-for="FirstName" class="form-label small">First Name</label>
@@ -107,9 +110,10 @@
                          style="display: none;">
                     </div>
                 </div>
+                <span asp-validation-for="FirstStop" class="text-danger small"></span>
             </div>
             <div class="col-md-6 mb-2" id="optionalField2" style="display: none;">
-                <label asp-for="SecStop" class="form-label small">Sec Stop</label>
+                <label asp-for="SecStop" class="form-label small">Second Stop</label>
                 <div class="position-relative">
                     <input asp-for="SecStop"
                            id="SecStop"
@@ -124,6 +128,7 @@
                          style="display: none;">
                     </div>
                 </div>
+                <span asp-validation-for="SecStop" class="text-danger small"></span>
             </div>
             <div class="row">
                 <button type="button" id="AddStopBtn" class="btn btn-secondary btn-sm mb-2">Add stop</button>
@@ -142,19 +147,18 @@
             </div>
 
             <div class="form-footer">
-                <button type="submit" asp-action="Create" class="btn-submit btn-sm">
-                    <span>Create Booking</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button type="submit" class="btn-submit btn-sm">
+                    <span>Continue to Preview</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
                 </button>
             </div>
         </form>
-
     </div>
 </div>
 
 @section Scripts {
-    <script src="~/js/booking.js"></script>
+    <script src="~/js/booking.js" asp-append-version="true"></script>
 }

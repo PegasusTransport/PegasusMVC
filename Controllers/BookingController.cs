@@ -6,88 +6,90 @@ using Pegasus_MVC.Services;
 using Pegasus_MVC.ViewModels;
 using System.Globalization;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Pegasus_MVC.Controllers
 {
-    public class BookingController(IBookingService bookingService, IHttpClientFactory httpClient, IValidator<CreateBookingVM> validator, ILogger<BookingController> logger) : Controller
+    public class BookingController(IBookingService bookingService, IValidator<CreateBookingVM> validator) : Controller
     {
-        private readonly HttpClient _httpClient = httpClient.CreateClient("PegasusServer");
-
+        
         public IActionResult Index()
         {
             return View(new CreateBookingVM());
-        }
-        public IActionResult ConfirmAndSendBooking()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Preview(CreateBookingVM createBooking)
-        {
-            var results = await validator.ValidateAsync(createBooking);
-
-            foreach (var error in results.Errors)
-            {
-                logger.LogError(error.ErrorMessage);
-                ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            }
-
-            if (!bookingService.CheckArlandaRequirement(createBooking))
-            {
-                ModelState.AddModelError("ArlandaRequirement", "One address needs to be Arlanda, if pickup address is Arlanda flight number is requierd");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View("Index", createBooking);
-            }
-
-            var previewResponse = await bookingService.GetPreview(createBooking);
-
-            if (previewResponse.StatusCode != HttpStatusCode.OK)
-            {
-                ViewBag.ErrorMessage = "Could not load preview";
-                return View("Index", createBooking);
-            }
-
-            return PartialView("_BookingPreview", previewResponse.Data);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateBookingVM createBooking)
         {
             var results = await validator.ValidateAsync(createBooking);
 
-  
             foreach (var error in results.Errors)
             {
-                logger.LogError(error.ErrorMessage);
                 ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
             }
 
             if (!bookingService.CheckArlandaRequirement(createBooking))
             {
-                ModelState.AddModelError("ArlandaRequirement", "One address needs to be Arlanda, if pickup address is Arlanda flight number is requierd");
+                ModelState.AddModelError("ArlandaRequirement", "One address needs to be Arlanda, if pickup address is Arlanda flight number is required");
             }
-
 
             if (!ModelState.IsValid)
             {
                 return View("Index", createBooking);
             }
-            
-            var booking = await bookingService.CreateBookingAsync(createBooking);
 
+            // Hämta preview data (pris, distans, tid)
+            var previewResponse = await bookingService.GetPreview(createBooking);
 
-            logger.LogInformation($"Booking created with status code: {booking.StatusCode}");
-
-            if (booking.StatusCode != HttpStatusCode.OK)
+            if (previewResponse.StatusCode != HttpStatusCode.OK || previewResponse.Data == null)
             {
-                ViewBag.ErrorMessage = "Bookning didnt send";
+                ViewBag.ErrorMessage = "Could not calculate price. Please try again.";
                 return View("Index", createBooking);
             }
 
-            return View("ConfirmAndSendBooking", booking.Data);
+            // Spara CreateBookingDto i TempData
+            var bookingRequest = bookingService.CreateBookingDto(createBooking);
+            TempData["BookingRequest"] = JsonSerializer.Serialize(bookingRequest);
+
+            // Visa preview
+            return View("ConfirmBooking", previewResponse.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmBooking()
+        {
+            // Hämta bookingRequest från TempData
+            var bookingRequestJson = TempData["BookingRequest"] as string;
+
+            if (string.IsNullOrEmpty(bookingRequestJson))
+            {
+                ViewBag.ErrorMessage = "Session expired. Please create booking again.";
+                return RedirectToAction("Index");
+            }
+
+            var bookingRequest = JsonSerializer.Deserialize<CreateBookingDto>(bookingRequestJson);
+
+            if (bookingRequest == null)
+            {
+                ViewBag.ErrorMessage = "Invalid booking data.";
+                return RedirectToAction("Index");
+            }
+
+            var booking = await bookingService.CreateBookingAsync(bookingRequest);
+
+            if (booking.StatusCode != HttpStatusCode.OK)
+            {
+                ViewBag.ErrorMessage = "Booking failed to send";
+
+                // Återställ TempData för att kunna försöka igen
+                TempData["BookingRequest"] = bookingRequestJson;
+
+                // Vi behöver även preview data här
+                // Enklast är att redirecta tillbaka
+                return RedirectToAction("Index");
+            }
+
+            return View("BookingSuccess", booking.Data);
         }
     }
 }
