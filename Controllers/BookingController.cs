@@ -38,7 +38,6 @@ namespace Pegasus_MVC.Controllers
                 return View("Index", createBooking);
             }
 
-            // Hämta preview data (pris, distans, tid)
             var previewResponse = await bookingService.GetPreview(createBooking);
 
             if (previewResponse.StatusCode != HttpStatusCode.OK || previewResponse.Data == null)
@@ -47,18 +46,17 @@ namespace Pegasus_MVC.Controllers
                 return View("Index", createBooking);
             }
 
-            // Spara CreateBookingDto i TempData
+            // Save booking data to tempdata for confirmation
             var bookingRequest = bookingService.CreateBookingDto(createBooking);
             TempData["BookingRequest"] = JsonSerializer.Serialize(bookingRequest);
 
-            // Visa preview
             return View("ConfirmBooking", previewResponse.Data);
         }
 
         [HttpPost]
         public async Task<IActionResult> ConfirmBooking()
         {
-            // Hämta bookingRequest från TempData
+            // Get booking from tempdata
             var bookingRequestJson = TempData["BookingRequest"] as string;
 
             if (string.IsNullOrEmpty(bookingRequestJson))
@@ -81,11 +79,7 @@ namespace Pegasus_MVC.Controllers
             {
                 ViewBag.ErrorMessage = "Booking failed to send";
 
-                // Återställ TempData för att kunna försöka igen
                 TempData["BookingRequest"] = bookingRequestJson;
-
-                // Vi behöver även preview data här
-                // Enklast är att redirecta tillbaka
                 return RedirectToAction("Index");
             }
 

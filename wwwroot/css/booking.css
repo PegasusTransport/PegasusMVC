@@ -196,3 +196,29 @@
         justify-content: center;
     }
 }
+
+
+.address-suggestions {
+    position: absolute; 
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 12.5rem;
+    overflow-y: auto;
+    z-index: 1000; 
+    background-color: #fff;
+    border: 0.0625rem solid #ccc; 
+    box-shadow: 0 0.125rem 0.375rem rgba(0,0,0,0.15); 
+    border-radius: 0.25rem;
+    display: none;
+    font-size: 0.95rem; 
+}
+
+    .address-suggestions .list-group-item {
+        cursor: pointer;
+        padding: 0.5em 0.75em;
+    }
+
+        .address-suggestions .list-group-item:hover {
+            background-color: #f1f1f1;
+        }

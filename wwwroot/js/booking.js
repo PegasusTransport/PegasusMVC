@@ -6,7 +6,9 @@
         this.setupAutocomplete('PickUpAddress');
         this.setupAutocomplete('DropOffAddress');
         this.setupAddStopButton();
-        console.log('BookingApp initialized');
+        console.log('BookingApp initialized');      
+
+
     },
 
     setupAddStopButton() {
@@ -41,9 +43,7 @@
             return;
         }
 
-        console.log(`Autocomplete setup for ${fieldId}`);
         let debounceTimer;
-
         input.addEventListener('input', () => {
             clearTimeout(debounceTimer);
 
@@ -94,6 +94,7 @@
                 container.style.display = 'none';
 
                 const placeIdField = document.getElementById(`${fieldId}PlaceId`);
+                console.log(`Selected place ID for ${fieldId}:`, place.placeId);
                 if (placeIdField) {
                     placeIdField.value = place.placeId;
                 }
@@ -108,6 +109,8 @@
     },
 
     async getCoordinates(sessionToken, placeId, fieldId) {
+       
+
         try {
             const params = new URLSearchParams({ placeId, sessionToken });
             const response = await fetch(`https://localhost:7161/api/Map/GetLongNLat?${params}`);
@@ -125,9 +128,57 @@
         } catch (error) {
             console.error('Error getting coordinates:', error);
         }
-    }
-};
+    }, 
 
+   
+
+};
+function changeArlandaValue() {
+
+    const arlandaData = {
+        name: "Arlanda Airport (ARN), Stockholm-Arlanda, Sverige",
+        placeId: "ChIJ_YMtw2OdX0YRM1xOfqKV-FI",
+        latitude: 59.6493928,
+        longitude: 17.9342942
+    };
+
+    const arlandaChecker = document.getElementById("FromArlanda");
+
+    const pickUpValue = document.getElementById("PickUpAddress");
+    const pickUpPlaceId = document.getElementById("PickUpAddressPlaceId");
+    const pickUpLat = document.getElementById("PickUpAddressLatitude");
+    const pickUpLng = document.getElementById("PickUpAddressLongitude");
+
+    const dropOffValue = document.getElementById("DropOffAddress");
+    const dropOffPlaceId = document.getElementById("DropOffAddressPlaceId");
+    const dropOffLat = document.getElementById("DropOffAddressLatitude");
+    const dropOffLng = document.getElementById("DropOffAddressLongitude");
+
+    if (arlandaChecker.checked) {
+
+        pickUpValue.value = arlandaData.name;
+        pickUpPlaceId.value = arlandaData.placeId;
+        pickUpLat.value = arlandaData.latitude;
+        pickUpLng.value = arlandaData.longitude;
+
+        dropOffValue.value = ""; 
+        dropOffPlaceId.value = "";
+        dropOffLat.value = "";
+        dropOffLng.value = "";
+
+    } else {
+       
+        pickUpValue.value = ""; 
+        pickUpPlaceId.value = "";
+        pickUpLat.value = "";
+        pickUpLng.value = "";
+
+        dropOffValue.value = arlandaData.name;
+        dropOffPlaceId.value = arlandaData.placeId;
+        dropOffLat.value = arlandaData.latitude;
+        dropOffLng.value = arlandaData.longitude;
+    }
+}
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing BookingApp');
