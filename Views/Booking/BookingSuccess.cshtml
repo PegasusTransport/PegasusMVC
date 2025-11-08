@@ -1,0 +1,27 @@
+﻿@using Pegasus_MVC.DTO
+@model CreateBookingDto
+
+<div style="max-width: 800px; margin: 40px auto; padding: 20px; text-align: center;">
+    <div style="background: #d4edda; padding: 40px; border-radius: 8px; border: 2px solid #28a745;">
+        <h1 style="color: #28a745; font-size: 3rem;">✓</h1>
+        <h2 style="color: #155724;">Booking Confirmed!</h2>
+        <p style="font-size: 1.2rem; margin-top: 20px;">
+            Thank you, <strong>@Model.FirstName @Model.LastName</strong>!
+        </p>
+        <p>Your booking has been successfully created.</p>
+        <p>A confirmation email has been sent to <strong>@Model.Email</strong></p>
+    </div>
+
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 30px 0;">
+        <h3>Booking Summary</h3>
+        <p><strong>Pickup:</strong> @Model.PickUpDateTime.ToString("yyyy-MM-dd HH:mm")</p>
+        <p><strong>From:</strong> @Model.PickUpAddress</p>
+        <p><strong>To:</strong> @Model.DropOffAddress</p>
+    </div>
+
+    <a asp-controller="Home" asp-action="Index"
+       class="btn btn-primary"
+       style="padding: 12px 40px; font-size: 1.1rem;">
+        Back to Home
+    </a>
+</div>

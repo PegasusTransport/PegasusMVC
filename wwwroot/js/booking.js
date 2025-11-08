@@ -6,7 +6,6 @@
         this.setupAutocomplete('PickUpAddress');
         this.setupAutocomplete('DropOffAddress');
         this.setupAddStopButton();
-        this.setupCreateBookingButton();
         console.log('BookingApp initialized');
     },
 
@@ -30,103 +29,6 @@
                 btn.disabled = true;
             }
         });
-    },
-
-    setupCreateBookingButton() {
-        const btn = document.getElementById('openPopup');
-        console.log('Looking for create booking button:', btn);
-
-        if (!btn) {
-            console.error('CREATE BOOKING BUTTON NOT FOUND!');
-            return;
-        }
-
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('Create booking clicked!');
-            this.loadPreview();
-        });
-
-        console.log('Create booking button listener added');
-    },
-
-    async loadPreview() {
-        console.log('loadPreview started');
-
-        const container = document.getElementById('popupContainer');
-        if (!container) {
-            console.error('popupContainer not found!');
-            return;
-        }
-
-        // Show loading spinner
-        container.innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary"></div><p>Loading preview...</p></div>';
-
-        // Get form data
-        const data = {
-            FirstName: this.getValue('FirstName'),
-            LastName: this.getValue('LastName'),
-            Email: this.getValue('Email'),
-            PhoneNumber: this.getValue('PhoneNumber'),
-            PickUpDateTime: this.getValue('PickUpDateTime'),
-            PickUpAddress: this.getValue('PickUpAddress'),
-            PickUpLatitude: this.getValue('PickUpAddressLatitude'),
-            PickUpLongitude: this.getValue('PickUpAddressLongitude'),
-            DropOffAddress: this.getValue('DropOffAddress'),
-            DropOffLatitude: this.getValue('DropOffAddressLatitude'),
-            DropOffLongitude: this.getValue('DropOffAddressLongitude'),
-            FirstStop: this.getValue('FirstStop'),
-            FirstStopLatitude: this.getValue('FirstStopLatitude'),
-            FirstStopLongitude: this.getValue('FirstStopLongitude'),
-            SecStop: this.getValue('SecStop'),
-            SecStopLatitude: this.getValue('SecStopLatitude'),
-            SecStopLongitude: this.getValue('SecStopLongitude'),
-            Flightnumber: this.getValue('Flightnumber'),
-            Comment: this.getValue('Comment')
-        };
-
-        console.log('Sending data:', data);
-
-        try {
-            const response = await fetch('/Booking/Preview', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(data)
-            });
-
-            console.log('Response received:', response.status);
-
-            if (!response.ok) {
-                throw new Error(`Server error: ${response.status}`);
-            }
-
-            const html = await response.text();
-            console.log('HTML received, length:', html.length);
-
-            container.innerHTML = html;
-
-            // Show modal
-            const modalEl = document.getElementById('bookingPreviewModal');
-            if (modalEl) {
-                const modal = new bootstrap.Modal(modalEl);
-                modal.show();
-                console.log('Modal shown');
-            } else {
-                console.error('Modal element not found in response');
-            }
-
-        } catch (error) {
-            console.error('Error loading preview:', error);
-            container.innerHTML = `<div class="alert alert-danger m-3">Error: ${error.message}</div>`;
-        }
-    },
-
-    getValue(id) {
-        const el = document.getElementById(id);
-        return el ? el.value : '';
     },
 
     setupAutocomplete(fieldId) {
@@ -231,21 +133,3 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing BookingApp');
     BookingApp.init();
 });
-
-// Global function for confirm button in modal
-function confirmBooking() {
-    console.log('confirmBooking called');
-    const modal = bootstrap.Modal.getInstance(document.getElementById('bookingPreviewModal'));
-    if (modal) {
-        modal.hide();
-    }
-
-    const form = document.getElementById('bookingForm');
-    if (form) {
-        form.action = '/Booking/Create';
-        form.submit();
-        console.log('Form submitted');
-    } else {
-        console.error('Form not found!');
-    }
-}

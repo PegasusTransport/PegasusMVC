@@ -3,21 +3,22 @@ using Pegasus_MVC.Response;
 using Pegasus_MVC.ViewModels;
 using System.Globalization;
 using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace Pegasus_MVC.Services
 {
     public class BookingService(IHttpClientFactory httpClient, ILogger<BookingService> logger) : IBookingService
     {
         private readonly HttpClient _httpClient = httpClient.CreateClient("PegasusServer");
-        public async Task<ServiceResponse<CreateBookingDto>> CreateBookingAsync(CreateBookingVM newBooking)
+        public async Task<ServiceResponse<CreateBookingDto>> CreateBookingAsync(CreateBookingDto bookingRequest)
         {
             try
             {
-                var booking = CreateBookingDto(newBooking);
+                //var booking = CreateBookingDto(newBooking);
 
                 var request = new HttpRequestMessage(HttpMethod.Post, $"{_httpClient.BaseAddress}Booking/createBooking")
                 {
-                    Content = JsonContent.Create(booking)
+                    Content = JsonContent.Create(bookingRequest)
                 };
 
                 request.Headers.Add("Idempotency-Key", Guid.NewGuid().ToString());
@@ -29,7 +30,7 @@ namespace Pegasus_MVC.Services
                     logger.LogInformation("Booking created successfully.");
                     return ServiceResponse<CreateBookingDto>.SuccessResponse(
                         HttpStatusCode.OK,
-                        booking);
+                        bookingRequest);
                 }
 
                 logger.LogWarning($"Failed to create booking. Status code: {response.StatusCode}");
@@ -182,8 +183,35 @@ namespace Pegasus_MVC.Services
 
             return bookingPreviewRequest;
         }
-        private static CreateBookingDto CreateBookingDto(CreateBookingVM createBooking)
+        public CreateBookingDto CreateBookingDto(CreateBookingVM createBooking)
         {
+            logger.LogInformation("=== Creating BookingDto ===");
+            logger.LogInformation("Customer Info - FirstName: {FirstName}, LastName: {LastName}, Email: {Email}, Phone: {Phone}",
+                createBooking.FirstName, createBooking.LastName, createBooking.Email, createBooking.PhoneNumber);
+
+            logger.LogInformation("PickUp - DateTime: {DateTime}, Address: {Address}",
+                createBooking.PickUpDateTime, createBooking.PickUpAddress);
+            logger.LogInformation("PickUp Coordinates - Lat: {Lat}, Long: {Long}",
+                createBooking.PickUpLatitude, createBooking.PickUpLongitude);
+
+            logger.LogInformation("DropOff - Address: {Address}",
+                createBooking.DropOffAddress);
+            logger.LogInformation("DropOff Coordinates - Lat: {Lat}, Long: {Long}",
+                createBooking.DropOffLatitude, createBooking.DropOffLongitude);
+
+            logger.LogInformation("FirstStop - Address: {Address}, Lat: {Lat}, Long: {Long}",
+                createBooking.FirstStop ?? "NULL",
+                createBooking.FirstStopLatitude ?? "NULL",
+                createBooking.FirstStopLongitude ?? "NULL");
+
+            logger.LogInformation("SecondStop - Address: {Address}, Lat: {Lat}, Long: {Long}",
+                createBooking.SecStop ?? "NULL",
+                createBooking.SecStopLatitude ?? "NULL",
+                createBooking.SecStopLongitude ?? "NULL");
+
+            logger.LogInformation("Optional - Flightnumber: {Flight}, Comment: {Comment}",
+                createBooking.Flightnumber ?? "NULL", createBooking.Comment ?? "NULL");
+
             var newBooking = new CreateBookingDto
             {
                 FirstName = createBooking.FirstName,
@@ -193,8 +221,6 @@ namespace Pegasus_MVC.Services
 
                 PickUpDateTime = createBooking.PickUpDateTime,
                 PickUpAddress = createBooking.PickUpAddress,
-
-
                 PickUpLatitude = double.Parse(createBooking.PickUpLatitude, CultureInfo.InvariantCulture),
                 PickUpLongitude = double.Parse(createBooking.PickUpLongitude, CultureInfo.InvariantCulture),
 
@@ -202,15 +228,13 @@ namespace Pegasus_MVC.Services
                 DropOffLatitude = double.Parse(createBooking.DropOffLatitude, CultureInfo.InvariantCulture),
                 DropOffLongitude = double.Parse(createBooking.DropOffLongitude, CultureInfo.InvariantCulture),
 
-
-                FirstStopAddress = !string.IsNullOrEmpty(createBooking.SecStop) ? createBooking.SecStop : null,
-                FirstStopLatitude = !string.IsNullOrEmpty(createBooking.SecStopLatitude)
-                    ? double.Parse(createBooking.SecStopLatitude, CultureInfo.InvariantCulture)
+                FirstStopAddress = !string.IsNullOrEmpty(createBooking.FirstStop) ? createBooking.FirstStop : null,
+                FirstStopLatitude = !string.IsNullOrEmpty(createBooking.FirstStopLatitude)
+                    ? double.Parse(createBooking.FirstStopLatitude, CultureInfo.InvariantCulture)
                     : null,
-                FirstStopLongitude = !string.IsNullOrEmpty(createBooking.SecStopLongitude)
-                    ? double.Parse(createBooking.SecStopLongitude, CultureInfo.InvariantCulture)
+                FirstStopLongitude = !string.IsNullOrEmpty(createBooking.FirstStopLongitude)
+                    ? double.Parse(createBooking.FirstStopLongitude, CultureInfo.InvariantCulture)
                     : null,
-
 
                 SecondStopAddress = !string.IsNullOrEmpty(createBooking.SecStop) ? createBooking.SecStop : null,
                 SecondStopLatitude = !string.IsNullOrEmpty(createBooking.SecStopLatitude)
@@ -222,8 +246,12 @@ namespace Pegasus_MVC.Services
 
                 Flightnumber = !string.IsNullOrEmpty(createBooking.Flightnumber) ? createBooking.Flightnumber : null,
                 Comment = !string.IsNullOrEmpty(createBooking.Comment) ? createBooking.Comment : null
-
             };
+
+            logger.LogInformation("=== BookingDto Created Successfully ===");
+            logger.LogInformation("Parsed Coordinates - PickUp Lat: {PLat}, Long: {PLong} | DropOff Lat: {DLat}, Long: {DLong}",
+                newBooking.PickUpLatitude, newBooking.PickUpLongitude,
+                newBooking.DropOffLatitude, newBooking.DropOffLongitude);
 
             return newBooking;
         }
@@ -242,6 +270,6 @@ namespace Pegasus_MVC.Services
             return addresses;
         }
         
-
+        
     }
 }
