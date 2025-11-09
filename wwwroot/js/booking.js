@@ -1,11 +1,13 @@
 ﻿const BookingApp = {
     stops: 0,
+    currentDirection: 'to',
 
     init() {
         console.log('BookingApp initializing...');
         this.setupAutocomplete('PickUpAddress');
         this.setupAutocomplete('DropOffAddress');
         this.setupAddStopButton();
+        this.updateFlightNumberVisibility();
         console.log('BookingApp initialized');
     },
 
@@ -29,6 +31,13 @@
                 btn.disabled = true;
             }
         });
+    },
+
+    updateFlightNumberVisibility() {
+        const flightField = document.getElementById('flightNumberField');
+        if (flightField) {
+            flightField.style.display = this.currentDirection === 'from' ? 'block' : 'none';
+        }
     },
 
     setupAutocomplete(fieldId) {
@@ -77,7 +86,7 @@
             }, 800);
         });
 
-        
+
         input.addEventListener('coordinatesSet', () => {
             lastSelectedValue = input.value;
         });
@@ -146,7 +155,7 @@
     }
 };
 
-function changeArlandaValue() {
+function setTripDirection(direction) {
     const arlandaData = {
         name: "Arlanda Airport (ARN), Stockholm-Arlanda, Sverige",
         placeId: "ChIJ_YMtw2OdX0YRM1xOfqKV-FI",
@@ -154,7 +163,8 @@ function changeArlandaValue() {
         longitude: 17.9342942
     };
 
-    const arlandaChecker = document.getElementById("FromArlanda");
+    const toBtn = document.getElementById("toArlandaBtn");
+    const fromBtn = document.getElementById("fromArlandaBtn");
 
     const pickUpValue = document.getElementById("PickUpAddress");
     const pickUpPlaceId = document.getElementById("PickUpAddressPlaceId");
@@ -166,7 +176,13 @@ function changeArlandaValue() {
     const dropOffLat = document.getElementById("DropOffAddressLatitude");
     const dropOffLng = document.getElementById("DropOffAddressLongitude");
 
-    if (arlandaChecker.checked) {
+    toBtn.classList.remove('active');
+    fromBtn.classList.remove('active');
+
+    if (direction === 'from') {
+        fromBtn.classList.add('active');
+        BookingApp.currentDirection = 'from';
+
         pickUpValue.value = arlandaData.name;
         pickUpPlaceId.value = arlandaData.placeId;
         pickUpLat.value = arlandaData.latitude;
@@ -177,6 +193,9 @@ function changeArlandaValue() {
         dropOffLat.value = "";
         dropOffLng.value = "";
     } else {
+        toBtn.classList.add('active');
+        BookingApp.currentDirection = 'to';
+
         pickUpValue.value = "";
         pickUpPlaceId.value = "";
         pickUpLat.value = "";
@@ -187,6 +206,8 @@ function changeArlandaValue() {
         dropOffLat.value = arlandaData.latitude;
         dropOffLng.value = arlandaData.longitude;
     }
+
+    BookingApp.updateFlightNumberVisibility();
 }
 
 document.addEventListener('DOMContentLoaded', () => {

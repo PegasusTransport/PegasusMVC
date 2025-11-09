@@ -31,7 +31,7 @@
         <form asp-controller="Booking" asp-action="Create" method="post" id="bookingForm" class="booking-form">
             <span asp-validation-for="SecStop" class="text-danger small"></span>
             <span asp-validation-for="FirstStop" class="text-danger small"></span>
-          
+
             <div class="row">
                 <div class="col-md-6 mb-2">
                     <label asp-for="FirstName" class="form-label small">First Name</label>
@@ -60,23 +60,33 @@
 
             <div class="mb-2">
                 <label asp-for="PickUpDateTime" class="form-label small">Pickup Time</label>
-                <input asp-for="PickUpDateTime" type="datetime-local" class="form-control form-control-sm" />
+                <input asp-for="PickUpDateTime" type="datetime-local" class="form-control form-control-sm" step="300" />
                 <span asp-validation-for="PickUpDateTime" class="text-danger small"></span>
             </div>
 
-            <div class="row align-items-center">
-                <div class="col-md-5 mb-2">
+            <div class="mb-2 justify-content-center align-content-center">
+                <div class="trip-toggle-container">
+                    <button type="button" class="trip-toggle-btn active" id="toArlandaBtn" onclick="setTripDirection('to')">
+                        + To Arlanda
+                    </button>
+                    <button type="button" class="trip-toggle-btn" id="fromArlandaBtn" onclick="setTripDirection('from')">
+                        → From Arlanda
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
                     <label asp-for="PickUpAddress" class="form-label small">Pickup Address</label>
                     <div class="position-relative">
                         <input asp-for="PickUpAddress"
                                id="PickUpAddress"
                                class="form-control form-control-sm"
                                placeholder="Street and number"
-                               autocomplete="off"
-                               />
+                               autocomplete="off" />
 
                         <input asp-for="PickUpAddressPlaceId" type="hidden" id="PickUpAddressPlaceId" />
-                        <input asp-for="PickUpLatitude" type="hidden" id="PickUpAddressLatitude"  />
+                        <input asp-for="PickUpLatitude" type="hidden" id="PickUpAddressLatitude" />
                         <input asp-for="PickUpLongitude" type="hidden" id="PickUpAddressLongitude" />
                         <div id="PickUpAddress-suggestions"
                              class="address-suggestions list-group"
@@ -85,14 +95,7 @@
                     </div>
                     <span asp-validation-for="PickUpAddress" class="text-danger small"></span>
                 </div>
-
-                <div class="col-md-2 text-center form-check form-switch">
-                    <label for="FromArlanda" class="form-label small d-block mb-1">From Arlanda</label>
-                    <div class="form-check d-flex justify-content-center">
-                        <input type="checkbox"  class="form-check-input" id="FromArlanda" onchange="changeArlandaValue()">
-                    </div>
-                </div>
-                <div class="col-md-5 mb-2">
+                <div class="col-md-6 mb-2">
                     <label asp-for="DropOffAddress" class="form-label small">Drop-off Address</label>
                     <div class="position-relative">
                         <input asp-for="DropOffAddress"
@@ -131,7 +134,7 @@
                          style="display: none;">
                     </div>
                 </div>
-                
+
             </div>
             <div class="col-md-6 mb-2" id="optionalField2" style="display: none;">
                 <label asp-for="SecStop" class="form-label small">Second Stop</label>
@@ -156,9 +159,9 @@
                 <button type="button" id="AddStopBtn" class="btn btn-secondary btn-sm ">Add stop</button>
             </div>
 
-            <div class="mb-2">
+            <div class="mb-2" id="flightNumberField" style="display: none;">
                 <label asp-for="Flightnumber" class="form-label small">Flight Number</label>
-                <input asp-for="Flightnumber" class="form-control form-control-sm" placeholder="SK1234 (optional)" />
+                <input asp-for="Flightnumber" class="form-control form-control-sm" placeholder="Required for pickup from Arlanda" />
                 <span asp-validation-for="Flightnumber" class="text-danger small"></span>
             </div>
 
