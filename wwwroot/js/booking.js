@@ -6,9 +6,7 @@
         this.setupAutocomplete('PickUpAddress');
         this.setupAutocomplete('DropOffAddress');
         this.setupAddStopButton();
-        console.log('BookingApp initialized');      
-
-
+        console.log('BookingApp initialized');
     },
 
     setupAddStopButton() {
@@ -39,12 +37,18 @@
         const suggestions = document.getElementById(`${fieldId}-suggestions`);
 
         if (!input || !suggestions) {
-
             return;
         }
 
         let debounceTimer;
+        let lastSelectedValue = '';
+
         input.addEventListener('input', () => {
+
+            if (input.value !== lastSelectedValue) {
+                this.clearCoordinates(fieldId);
+            }
+
             clearTimeout(debounceTimer);
 
             if (input.value.length < 2) {
@@ -72,6 +76,21 @@
                 }
             }, 800);
         });
+
+        
+        input.addEventListener('coordinatesSet', () => {
+            lastSelectedValue = input.value;
+        });
+    },
+
+    clearCoordinates(fieldId) {
+        const placeIdField = document.getElementById(`${fieldId}PlaceId`);
+        const latField = document.getElementById(`${fieldId}Latitude`);
+        const lonField = document.getElementById(`${fieldId}Longitude`);
+
+        if (placeIdField) placeIdField.value = '';
+        if (latField) latField.value = '';
+        if (lonField) lonField.value = '';
     },
 
     showSuggestions(places, container, input, fieldId, token) {
@@ -99,6 +118,8 @@
                 }
 
                 await this.getCoordinates(token, place.placeId, fieldId);
+
+                input.dispatchEvent(new CustomEvent('coordinatesSet'));
             });
 
             container.appendChild(item);
@@ -108,8 +129,6 @@
     },
 
     async getCoordinates(sessionToken, placeId, fieldId) {
-       
-
         try {
             const params = new URLSearchParams({ placeId, sessionToken });
             const response = await fetch(`https://localhost:7161/api/Map/GetLongNLat?${params}`);
@@ -121,18 +140,13 @@
 
                 if (latField) latField.value = result.data.latitude;
                 if (lonField) lonField.value = result.data.longitude;
-
             }
         } catch (error) {
-
         }
-    }, 
-
-   
-
+    }
 };
-function changeArlandaValue() {
 
+function changeArlandaValue() {
     const arlandaData = {
         name: "Arlanda Airport (ARN), Stockholm-Arlanda, Sverige",
         placeId: "ChIJ_YMtw2OdX0YRM1xOfqKV-FI",
@@ -153,20 +167,17 @@ function changeArlandaValue() {
     const dropOffLng = document.getElementById("DropOffAddressLongitude");
 
     if (arlandaChecker.checked) {
-
         pickUpValue.value = arlandaData.name;
         pickUpPlaceId.value = arlandaData.placeId;
         pickUpLat.value = arlandaData.latitude;
         pickUpLng.value = arlandaData.longitude;
 
-        dropOffValue.value = ""; 
+        dropOffValue.value = "";
         dropOffPlaceId.value = "";
         dropOffLat.value = "";
         dropOffLng.value = "";
-
     } else {
-       
-        pickUpValue.value = ""; 
+        pickUpValue.value = "";
         pickUpPlaceId.value = "";
         pickUpLat.value = "";
         pickUpLng.value = "";
@@ -177,7 +188,7 @@ function changeArlandaValue() {
         dropOffLng.value = arlandaData.longitude;
     }
 }
-// Initialize when DOM is ready
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing BookingApp');
     BookingApp.init();
