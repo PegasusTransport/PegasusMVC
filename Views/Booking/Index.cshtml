@@ -29,6 +29,8 @@
         }
 
         <form asp-controller="Booking" asp-action="Create" method="post" id="bookingForm" class="booking-form">
+            <span asp-validation-for="SecStop" class="text-danger small"></span>
+            <span asp-validation-for="FirstStop" class="text-danger small"></span>
           
             <div class="row">
                 <div class="col-md-6 mb-2">
@@ -123,12 +125,13 @@
                     <input asp-for="FirstStopPlaceId" type="hidden" id="FirstStopPlaceId" />
                     <input asp-for="FirstStopLatitude" type="hidden" id="FirstStopLatitude" />
                     <input asp-for="FirstStopLongitude" type="hidden" id="FirstStopLongitude" />
+                    <span asp-validation-for="FirstStop" class="text-danger small"></span>
                     <div id="FirstStop-suggestions"
                          class="address-suggestions list-group"
                          style="display: none;">
                     </div>
                 </div>
-                <span asp-validation-for="FirstStop" class="text-danger small"></span>
+                
             </div>
             <div class="col-md-6 mb-2" id="optionalField2" style="display: none;">
                 <label asp-for="SecStop" class="form-label small">Second Stop</label>
@@ -141,12 +144,13 @@
                     <input asp-for="SecStopPlaceId" type="hidden" id="SecStopPlaceId" />
                     <input asp-for="SecStopLatitude" type="hidden" id="SecStopLatitude" />
                     <input asp-for="SecStopLongitude" type="hidden" id="SecStopLongitude" />
+                    <span asp-validation-for="SecStop" class="text-danger small"></span>
                     <div id="SecStop-suggestions"
                          class="address-suggestions list-group"
                          style="display: none;">
                     </div>
                 </div>
-                <span asp-validation-for="SecStop" class="text-danger small"></span>
+
             </div>
             <div class="mb-2">
                 <button type="button" id="AddStopBtn" class="btn btn-secondary btn-sm ">Add stop</button>

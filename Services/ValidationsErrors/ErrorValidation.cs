@@ -1,6 +1,6 @@
-﻿namespace Pegasus_MVC.DTO.Wrapper
+﻿namespace Pegasus_MVC.Services.ValidationsErrors
 {
-    public class ArlandaValidationError
+    public class ErrorValidation
     {
 
         public string ErrorName { get; set; } = string.Empty;
