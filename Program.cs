@@ -16,7 +16,8 @@ namespace Pegasus_MVC
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IValidator<CreateBookingVM>, BookingValidator>();
             builder.Services.AddScoped<IBookingValidationService, BookingValidationService>();
-
+            builder.Services.AddScoped<IBookingStateService, BookingStateService>();
+            builder.Services.AddMemoryCache();
             builder.Services.AddHttpClient("PegasusServer", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7161/api/");
