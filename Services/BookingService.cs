@@ -44,8 +44,6 @@ namespace Pegasus_MVC.Services
             }
 
         }
-
-
         public async Task<ServiceResponse<BookingPreviewVM>> GetPreview(CreateBookingVM newBooking)
         {
             try
@@ -82,13 +80,10 @@ namespace Pegasus_MVC.Services
                         return ServiceResponse<BookingPreviewVM>.FailResponse(HttpStatusCode.InternalServerError);
                     }
 
-                    var previewResponse = apiResponse.Data;
-
-            
                     logger.LogInformation("API Response: Distance={Distance}, Duration={Duration}, Price={Price}",
-                        previewResponse.DistanceKm, previewResponse.DurationMinutes, previewResponse.Price);
+                        apiResponse.Data.DistanceKm, apiResponse.Data.DurationMinutes, apiResponse.Data.Price);
 
-                    var previewVM = new BookingPreviewVM
+                    var previewVM = new BookingPreviewVM 
                     {
                         Email = newBooking.Email,
                         FirstName = newBooking.FirstName,
@@ -101,9 +96,9 @@ namespace Pegasus_MVC.Services
                         DropOffAddress = newBooking.DropOffAddress,
                         Flightnumber = newBooking.Flightnumber,
                         Comment = newBooking.Comment,
-                        DistanceKm = previewResponse.DistanceKm,
-                        DurationMinutes = previewResponse.DurationMinutes,
-                        Price = previewResponse.Price
+                        DistanceKm = apiResponse.Data.DistanceKm,
+                        DurationMinutes = apiResponse.Data.DurationMinutes,
+                        Price = apiResponse.Data.Price
                     };
 
                     logger.LogInformation("Created VM: Distance={Distance}, Duration={Duration}, Price={Price}",
@@ -147,18 +142,6 @@ namespace Pegasus_MVC.Services
         }
         private static BookingPreviewRequestDto CreatePreview(CreateBookingVM createBooking)
         {
-  
-            double? ParseDoubleOrNull(string? value)
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    return null;
-
-                if (double.TryParse(value, CultureInfo.InvariantCulture, out double result))
-                    return result;
-
-                return null;
-            }
-
             var bookingPreviewRequest = new BookingPreviewRequestDto
             {
                 PickUpDateTime = createBooking.PickUpDateTime,
@@ -184,34 +167,7 @@ namespace Pegasus_MVC.Services
             return bookingPreviewRequest;
         }
         public CreateBookingDto CreateBookingDto(CreateBookingVM createBooking)
-        {
-            logger.LogInformation("=== Creating BookingDto ===");
-            logger.LogInformation("Customer Info - FirstName: {FirstName}, LastName: {LastName}, Email: {Email}, Phone: {Phone}",
-                createBooking.FirstName, createBooking.LastName, createBooking.Email, createBooking.PhoneNumber);
-
-            logger.LogInformation("PickUp - DateTime: {DateTime}, Address: {Address}",
-                createBooking.PickUpDateTime, createBooking.PickUpAddress);
-            logger.LogInformation("PickUp Coordinates - Lat: {Lat}, Long: {Long}",
-                createBooking.PickUpLatitude, createBooking.PickUpLongitude);
-
-            logger.LogInformation("DropOff - Address: {Address}",
-                createBooking.DropOffAddress);
-            logger.LogInformation("DropOff Coordinates - Lat: {Lat}, Long: {Long}",
-                createBooking.DropOffLatitude, createBooking.DropOffLongitude);
-
-            logger.LogInformation("FirstStop - Address: {Address}, Lat: {Lat}, Long: {Long}",
-                createBooking.FirstStop ?? "NULL",
-                createBooking.FirstStopLatitude ?? "NULL",
-                createBooking.FirstStopLongitude ?? "NULL");
-
-            logger.LogInformation("SecondStop - Address: {Address}, Lat: {Lat}, Long: {Long}",
-                createBooking.SecStop ?? "NULL",
-                createBooking.SecStopLatitude ?? "NULL",
-                createBooking.SecStopLongitude ?? "NULL");
-
-            logger.LogInformation("Optional - Flightnumber: {Flight}, Comment: {Comment}",
-                createBooking.Flightnumber ?? "NULL", createBooking.Comment ?? "NULL");
-
+        {  
             var newBooking = new CreateBookingDto
             {
                 FirstName = createBooking.FirstName,
@@ -221,41 +177,27 @@ namespace Pegasus_MVC.Services
 
                 PickUpDateTime = createBooking.PickUpDateTime,
                 PickUpAddress = createBooking.PickUpAddress,
-                PickUpLatitude = double.Parse(createBooking.PickUpLatitude, CultureInfo.InvariantCulture),
-                PickUpLongitude = double.Parse(createBooking.PickUpLongitude, CultureInfo.InvariantCulture),
+                PickUpLatitude = ParseDoubleOrNull(createBooking.PickUpLatitude) ?? 0,
+                PickUpLongitude = ParseDoubleOrNull(createBooking.PickUpLongitude) ?? 0,
 
                 DropOffAddress = createBooking.DropOffAddress,
-                DropOffLatitude = double.Parse(createBooking.DropOffLatitude, CultureInfo.InvariantCulture),
-                DropOffLongitude = double.Parse(createBooking.DropOffLongitude, CultureInfo.InvariantCulture),
+                DropOffLatitude = ParseDoubleOrNull(createBooking.DropOffLatitude) ?? 0,
+                DropOffLongitude = ParseDoubleOrNull(createBooking.DropOffLongitude) ?? 0,
 
                 FirstStopAddress = !string.IsNullOrEmpty(createBooking.FirstStop) ? createBooking.FirstStop : null,
-                FirstStopLatitude = !string.IsNullOrEmpty(createBooking.FirstStopLatitude)
-                    ? double.Parse(createBooking.FirstStopLatitude, CultureInfo.InvariantCulture)
-                    : null,
-                FirstStopLongitude = !string.IsNullOrEmpty(createBooking.FirstStopLongitude)
-                    ? double.Parse(createBooking.FirstStopLongitude, CultureInfo.InvariantCulture)
-                    : null,
+                FirstStopLatitude = ParseDoubleOrNull(createBooking.FirstStopLatitude),
+                FirstStopLongitude = ParseDoubleOrNull(createBooking.FirstStopLongitude),
 
                 SecondStopAddress = !string.IsNullOrEmpty(createBooking.SecStop) ? createBooking.SecStop : null,
-                SecondStopLatitude = !string.IsNullOrEmpty(createBooking.SecStopLatitude)
-                    ? double.Parse(createBooking.SecStopLatitude, CultureInfo.InvariantCulture)
-                    : null,
-                SecondStopLongitude = !string.IsNullOrEmpty(createBooking.SecStopLongitude)
-                    ? double.Parse(createBooking.SecStopLongitude, CultureInfo.InvariantCulture)
-                    : null,
+                SecondStopLatitude = ParseDoubleOrNull(createBooking.SecStopLatitude),
+                SecondStopLongitude = ParseDoubleOrNull(createBooking.SecStopLongitude),
 
                 Flightnumber = !string.IsNullOrEmpty(createBooking.Flightnumber) ? createBooking.Flightnumber : null,
                 Comment = !string.IsNullOrEmpty(createBooking.Comment) ? createBooking.Comment : null
             };
-
-            logger.LogInformation("=== BookingDto Created Successfully ===");
-            logger.LogInformation("Parsed Coordinates - PickUp Lat: {PLat}, Long: {PLong} | DropOff Lat: {DLat}, Long: {DLong}",
-                newBooking.PickUpLatitude, newBooking.PickUpLongitude,
-                newBooking.DropOffLatitude, newBooking.DropOffLongitude);
-
             return newBooking;
         }
-        private List<string> GetAllAddresses(CreateBookingVM bookingDto)
+        private static List<string> GetAllAddresses(CreateBookingVM bookingDto)
         {
             var addresses = new List<string> { bookingDto.PickUpAddress };
 
@@ -269,7 +211,17 @@ namespace Pegasus_MVC.Services
 
             return addresses;
         }
-        
-        
+        private static double? ParseDoubleOrNull(string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return null;
+
+            if (double.TryParse(value, CultureInfo.InvariantCulture, out double result))
+                return result;
+
+            return null;
+        }
+
+
     }
 }

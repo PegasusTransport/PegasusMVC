@@ -39,7 +39,7 @@
         const suggestions = document.getElementById(`${fieldId}-suggestions`);
 
         if (!input || !suggestions) {
-            console.log(`Autocomplete elements not found for ${fieldId}`);
+
             return;
         }
 
@@ -69,7 +69,6 @@
                     this.showSuggestions(places, suggestions, input, fieldId, sessionToken);
 
                 } catch (error) {
-                    console.error('Autocomplete error:', error);
                 }
             }, 800);
         });
@@ -94,7 +93,7 @@
                 container.style.display = 'none';
 
                 const placeIdField = document.getElementById(`${fieldId}PlaceId`);
-                console.log(`Selected place ID for ${fieldId}:`, place.placeId);
+
                 if (placeIdField) {
                     placeIdField.value = place.placeId;
                 }
@@ -123,10 +122,9 @@
                 if (latField) latField.value = result.data.latitude;
                 if (lonField) lonField.value = result.data.longitude;
 
-                console.log(`Coordinates set for ${fieldId}:`, result.data);
             }
         } catch (error) {
-            console.error('Error getting coordinates:', error);
+
         }
     }, 
 
