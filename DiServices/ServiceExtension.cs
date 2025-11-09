@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Pegasus_MVC.Services;
 using Pegasus_MVC.Services.Interfaces;
 using Pegasus_MVC.ViewModels;
@@ -18,6 +19,10 @@ namespace Pegasus_MVC.DiServices
             services.AddHttpClient("PegasusServer", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7161/api/");
+            });
+            services.Configure<MvcOptions>(options =>
+            {
+                options.ModelValidatorProviders.Clear(); // Removes all automatic validation
             });
             return services;
         }

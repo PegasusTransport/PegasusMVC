@@ -21,11 +21,11 @@ public class BookingValidator : AbstractValidator<CreateBookingVM>
             .EmailAddress().WithMessage("Invalid email format.");
 
         RuleFor(x => x.FirstName)
-            .NotEmpty().WithMessage("FirstName is required.")
+            .NotEmpty().WithMessage("First name is required.")
             .MaximumLength(50).WithMessage("FirstName can't exceed 50 characters.");
 
         RuleFor(x => x.LastName)
-            .NotEmpty().WithMessage("LastName is required.")
+            .NotEmpty().WithMessage("Lastname is required.")
             .MaximumLength(50).WithMessage("LastName can't exceed 50 characters.");
 
         RuleFor(x => x.PhoneNumber)
@@ -34,12 +34,12 @@ public class BookingValidator : AbstractValidator<CreateBookingVM>
 
         // Pickup
         RuleFor(x => x.PickUpDateTime)
-            .NotEmpty().WithMessage("PickUpDateTime is required.")
-            .Must(date => date >= DateTime.UtcNow.AddHours(48)).WithMessage("PickUpDateTime must be in the 48 hours from now.");
+            .NotEmpty().WithMessage("Pickup date and time is required.")
+            .Must(date => date >= DateTime.UtcNow.AddHours(48)).WithMessage("Pickup time must be in the 48 hours from now.");
 
         RuleFor(x => x.PickUpAddress)
-            .NotEmpty().WithMessage("PickUpAddress is required.")
-            .MaximumLength(300).WithMessage("PickUpAddress can't exceed 300 characters.");
+            .NotEmpty().WithMessage("Pickup address is required.")
+            .MaximumLength(300).WithMessage("Pick up address can't exceed 300 characters.");
 
         RuleFor(x => x.PickUpLatitude)
             .Must(coord => BeValidCoordinate(coord, minLat, maxLat)).WithMessage("PickUpLatitude must be between -90 and 90.");
@@ -54,7 +54,7 @@ public class BookingValidator : AbstractValidator<CreateBookingVM>
                 .MaximumLength(300).WithMessage("FirstStop can't exceed 300 characters.");
 
             RuleFor(x => x.FirstStopLatitude)
-                .NotNull().WithMessage("FirstStopLatitude required when FirstStop provided.")
+                .NotNull().WithMessage("First stop required when FirstStop provided.")
                 .Must(coord => BeValidCoordinate(coord, minLat, maxLat)).WithMessage("FirstStopLatitude must be between -90 and 90.");
 
             RuleFor(x => x.FirstStopLongitude)
@@ -79,7 +79,7 @@ public class BookingValidator : AbstractValidator<CreateBookingVM>
 
         // Dropoff
         RuleFor(x => x.DropOffAddress)
-            .NotEmpty().WithMessage("DropOffAddress is required.")
+            .NotEmpty().WithMessage("Dropopp addres is required.")
             .MaximumLength(300).WithMessage("DropOffAddress can't exceed 300 characters.");
 
         RuleFor(x => x.DropOffLatitude)
