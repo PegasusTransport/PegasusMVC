@@ -23,25 +23,36 @@ namespace Pegasus_MVC.Services
                 };
 
                 request.Headers.Add("Idempotency-Key", Guid.NewGuid().ToString());
-                var response = await _httpClient.SendAsync(request);
+                using var response = await _httpClient.SendAsync(request);
                 logger.LogInformation($"Sent request to api {request.Content}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     logger.LogInformation("Booking created successfully.");
+                    var apiResponse = await response.Content.ReadFromJsonAsync<ApiServiceResponse<CreateBookingDto>>();
                     return ServiceResponse<CreateBookingDto>.SuccessResponse(
                         HttpStatusCode.OK,
-                        bookingRequest);
+                        apiResponse?.Data ?? bookingRequest);
                 }
 
                 logger.LogWarning($"Failed to create booking. Status code: {response.StatusCode}");
                 return ServiceResponse<CreateBookingDto>.FailResponse(
                     response.StatusCode);
             }
+            catch (HttpRequestException ex)
+            {
+                logger.LogError(ex, "Network error when creating booking");
+                return ServiceResponse<CreateBookingDto>.FailResponse(HttpStatusCode.ServiceUnavailable);
+            }
+            catch (TaskCanceledException ex)
+            {
+                logger.LogError(ex, "Timeout when creating booking");
+                return ServiceResponse<CreateBookingDto>.FailResponse(HttpStatusCode.RequestTimeout);
+            }
             catch (Exception ex)
             {
-                logger.LogError($"Error sending request to api: {ex.Message}");
-                return ServiceResponse<CreateBookingDto>.FailResponse(HttpStatusCode.BadRequest);
+                logger.LogError(ex, "Unexpected error when creating booking");
+                return ServiceResponse<CreateBookingDto>.FailResponse(HttpStatusCode.InternalServerError);
             }
 
         }
@@ -68,7 +79,7 @@ namespace Pegasus_MVC.Services
                     Content = JsonContent.Create(preview)
                 };
 
-                var response = await _httpClient.SendAsync(request);
+                using var response = await _httpClient.SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
                 {
