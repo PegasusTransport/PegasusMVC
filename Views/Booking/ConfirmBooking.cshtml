@@ -46,18 +46,18 @@
                 </div>
                 <h3>Trip Details</h3>
                 <div class="detail-row">
-                    <span class="label">📅 Pickup Time:</span>
+                    <span class="label">Pickup Time:</span>
                     <span class="value">@Model.PickUpDateTime.ToString("yyyy-MM-dd HH:mm")</span>
                 </div>
                 <div class="detail-row">
-                    <span class="label">📍 From:</span>
+                    <span class="label">From:</span>
                     <span class="value">@Model.PickUpAddress</span>
                 </div>
 
                 @if (!string.IsNullOrEmpty(Model.FirstStopAddress))
                 {
                     <div class="detail-row">
-                        <span class="label">🛑 Stop 1:</span>
+                        <span class="label">Stop 1:</span>
                         <span class="value">@Model.FirstStopAddress</span>
                     </div>
                 }
@@ -65,20 +65,20 @@
                 @if (!string.IsNullOrEmpty(Model.SecondStopAddress))
                 {
                     <div class="detail-row">
-                        <span class="label">🛑 Stop 2:</span>
+                        <span class="label">Stop 2:</span>
                         <span class="value">@Model.SecondStopAddress</span>
                     </div>
                 }
 
                 <div class="detail-row">
-                    <span class="label">🏁 To:</span>
+                    <span class="label">To:</span>
                     <span class="value">@Model.DropOffAddress</span>
                 </div>
 
                 @if (!string.IsNullOrEmpty(Model.Flightnumber))
                 {
                     <div class="detail-row">
-                        <span class="label">✈️ Flight:</span>
+                        <span class="label">Flight:</span>
                         <span class="value">@Model.Flightnumber</span>
                     </div>
                 }
@@ -86,7 +86,7 @@
                 @if (!string.IsNullOrEmpty(Model.Comment))
                 {
                     <div class="detail-row">
-                        <span class="label">💬 Comment:</span>
+                        <span class="label">Comment:</span>
                         <span class="value">@Model.Comment</span>
                     </div>
                 }

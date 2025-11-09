@@ -28,21 +28,21 @@
             <h3>Booking Summary</h3>
             <div class="summary-details">
                 <div class="summary-row">
-                    <span class="label">📅 Pickup:</span>
+                    <span class="label">Pickup:</span>
                     <span class="value">@Model.PickUpDateTime.ToString("yyyy-MM-dd HH:mm")</span>
                 </div>
                 <div class="summary-row">
-                    <span class="label">📍 From:</span>
+                    <span class="label">From:</span>
                     <span class="value">@Model.PickUpAddress</span>
                 </div>
                 <div class="summary-row">
-                    <span class="label">🏁 To:</span>
+                    <span class="label">To:</span>
                     <span class="value">@Model.DropOffAddress</span>
                 </div>
                 @if (!string.IsNullOrEmpty(Model.Flightnumber))
                 {
                     <div class="summary-row">
-                        <span class="label">✈️ Flight:</span>
+                        <span class="label">Flight:</span>
                         <span class="value">@Model.Flightnumber</span>
                     </div>
                 }
