@@ -1,5 +1,6 @@
 using FluentValidation;
 using Pegasus_MVC.Services;
+using Pegasus_MVC.Services.Interfaces;
 using Pegasus_MVC.ViewModels;
 
 namespace Pegasus_MVC
@@ -14,6 +15,7 @@ namespace Pegasus_MVC
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IValidator<CreateBookingVM>, BookingValidator>();
+            builder.Services.AddScoped<IBookingValidationService, BookingValidationService>();
 
             builder.Services.AddHttpClient("PegasusServer", client =>
             {

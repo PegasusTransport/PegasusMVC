@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Pegasus_MVC.DTO
+namespace Pegasus_MVC.DTO.Wrapper
 {
     public class ApiServiceResponse<T>
     {

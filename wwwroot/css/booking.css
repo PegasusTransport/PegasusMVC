@@ -133,9 +133,8 @@
     font-size: 0.875rem;
     margin-top: 0.3125rem;
     display: block;
+    min-height: 1.25rem;
 }
-
-/* Lägg till detta i din CSS */
 
 #AddStopBtn {
     background: linear-gradient(135deg, var(--orange-crayola) 0%, #d45a28 100%);

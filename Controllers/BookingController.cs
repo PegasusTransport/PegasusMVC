@@ -2,7 +2,7 @@
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Pegasus_MVC.DTO;
-using Pegasus_MVC.Services;
+using Pegasus_MVC.Services.Interfaces;
 using Pegasus_MVC.ViewModels;
 using System.Globalization;
 using System.Net;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Pegasus_MVC.Controllers
 {
-    public class BookingController(IBookingService bookingService, IValidator<CreateBookingVM> validator) : Controller
+    public class BookingController(IBookingService bookingService, IBookingValidationService bookingValidation) : Controller
     {
         
         public IActionResult Index()
@@ -21,18 +21,7 @@ namespace Pegasus_MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateBookingVM createBooking)
         {
-            var results = await validator.ValidateAsync(createBooking);
-
-            foreach (var error in results.Errors)
-            {
-                ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            }
-
-            if (!bookingService.CheckArlandaRequirement(createBooking))
-            {
-                ModelState.AddModelError("ArlandaRequirement", "One address needs to be Arlanda, if pickup address is Arlanda flight number is required");
-            }
-
+            await bookingValidation.ValidateBookingAsync(createBooking, ModelState);
             if (!ModelState.IsValid)
             {
                 return View("Index", createBooking);

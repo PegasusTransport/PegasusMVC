@@ -13,11 +13,18 @@
             <div class="alert alert-danger py-2">@ViewBag.ErrorMessage</div>
         }
 
-        @if (ViewData.ModelState.ContainsKey("ArlandaRequirement"))
+        @if (ViewData.ModelState.ContainsKey("ValidateArlandaRequirement") || ViewData.ModelState.ContainsKey("FlightNumberRequierment"))
         {
             <div class="alert alert-danger py-2 mb-3">
                 <strong>Arlanda Requirement:</strong>
-                @ViewData.ModelState["ArlandaRequirement"]?.Errors.First().ErrorMessage
+                @if (ViewData.ModelState.ContainsKey("ValidateArlandaRequirement"))
+                {
+                    @ViewData.ModelState["ValidateArlandaRequirement"]?.Errors.First().ErrorMessage
+                }
+                @if (ViewData.ModelState.ContainsKey("FlightNumberRequierment"))
+                {
+                    @ViewData.ModelState["FlightNumberRequierment"]?.Errors.First().ErrorMessage
+                }
             </div>
         }
 
@@ -140,7 +147,7 @@
                 </div>
                 <span asp-validation-for="SecStop" class="text-danger small"></span>
             </div>
-            <div class="row">
+            <div class="mb-2">
                 <button type="button" id="AddStopBtn" class="btn btn-secondary btn-sm ">Add stop</button>
             </div>
 

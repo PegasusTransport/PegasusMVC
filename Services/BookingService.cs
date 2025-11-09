@@ -1,5 +1,7 @@
 ﻿using Pegasus_MVC.DTO;
+using Pegasus_MVC.DTO.Wrapper;
 using Pegasus_MVC.Response;
+using Pegasus_MVC.Services.Interfaces;
 using Pegasus_MVC.ViewModels;
 using System.Globalization;
 using System.Net;
@@ -14,7 +16,6 @@ namespace Pegasus_MVC.Services
         {
             try
             {
-                //var booking = CreateBookingDto(newBooking);
 
                 var request = new HttpRequestMessage(HttpMethod.Post, $"{_httpClient.BaseAddress}Booking/createBooking")
                 {
@@ -118,28 +119,6 @@ namespace Pegasus_MVC.Services
                 return ServiceResponse<BookingPreviewVM>.FailResponse(HttpStatusCode.BadRequest);
             }
         }
-        public bool CheckArlandaRequirement(CreateBookingVM bookingDto)
-        {
-            var allAddresses = GetAllAddresses(bookingDto);
-            var hasArlanda = allAddresses.Any(a => a != null && a.Contains("arlanda", StringComparison.OrdinalIgnoreCase));
-
-            if (!hasArlanda)
-            {
-                logger.LogWarning("Arlanda validation failed - no Arlanda address found");
-                return false;
-            }
-
-            if (!string.IsNullOrEmpty(bookingDto.PickUpAddress) &&
-                bookingDto.PickUpAddress.Contains("arlanda", StringComparison.OrdinalIgnoreCase) &&
-                string.IsNullOrEmpty(bookingDto.Flightnumber))
-            {
-                logger.LogWarning("Arlanda validation failed - no flight number for pickup from Arlanda");
-                return false;
-            }
-
-            logger.LogInformation("Arlanda validation passed");
-            return true;
-        }
         private static BookingPreviewRequestDto CreatePreview(CreateBookingVM createBooking)
         {
             var bookingPreviewRequest = new BookingPreviewRequestDto
@@ -197,20 +176,7 @@ namespace Pegasus_MVC.Services
             };
             return newBooking;
         }
-        private static List<string> GetAllAddresses(CreateBookingVM bookingDto)
-        {
-            var addresses = new List<string> { bookingDto.PickUpAddress };
 
-            if (!string.IsNullOrEmpty(bookingDto.FirstStop))
-                addresses.Add(bookingDto.FirstStop);
-
-            if (!string.IsNullOrEmpty(bookingDto.SecStop))
-                addresses.Add(bookingDto.SecStop);
-
-            addresses.Add(bookingDto.DropOffAddress);
-
-            return addresses;
-        }
         private static double? ParseDoubleOrNull(string? value)
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -221,7 +187,5 @@ namespace Pegasus_MVC.Services
 
             return null;
         }
-
-
     }
 }
