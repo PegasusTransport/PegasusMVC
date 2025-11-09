@@ -9,7 +9,12 @@ namespace Pegasus_MVC.ViewModels
         public string Email { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)] // For show in view
-        public DateTime PickUpDateTime { get; set; } = DateTime.UtcNow;
+        public DateTime PickUpDateTime { get; set; } = GetSwedishTime().AddHours(48);
+        private static DateTime GetSwedishTime()
+        {
+            var swedishTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
+            return TimeZoneInfo.ConvertTime(DateTime.UtcNow, swedishTimeZone);
+        }
         // Pickup address 
         public string PickUpAddress { get; set; } = null!;
         public string PickUpAddressPlaceId { get; set; } = null!;
