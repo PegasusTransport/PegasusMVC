@@ -1,3 +1,10 @@
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+using Pegasus_MVC.DiServices;
+using Pegasus_MVC.Services;
+using Pegasus_MVC.Services.Interfaces;
+using Pegasus_MVC.ViewModels;
+
 namespace Pegasus_MVC
 {
     public class Program
@@ -8,7 +15,8 @@ namespace Pegasus_MVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.MapServices();
+          
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
