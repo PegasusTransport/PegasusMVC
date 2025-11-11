@@ -1,8 +1,109 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Pegasus Transport";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p></p>
-</div>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Your trip to Arlanda starts here.</h1>
+        <p class="subtitle">
+            From Door to Terminal<br />
+            On Time. Every Time.
+        </p>
+
+
+        <a asp-controller="Booking" asp-action="Index" class="btn-primary">Book your ride now</a>
+    </div>
+</section>
+
+<section class="how-it-works" id="how-it-works">
+    <h2>Here’s how your trip works:</h2>
+
+    <div class="trip-buttons">
+        <button class="btn-switch active" data-target="from-arlanda">
+            <i class="fa-solid fa-plane-departure"></i> From Arlanda
+        </button>
+        <button class="btn-switch" data-target="to-arlanda">
+            <i class="fa-solid fa-plane-arrival"></i> To Arlanda
+        </button>
+    </div>
+
+    <div class="steps from-arlanda active">
+        <div class="step">
+            <i class="fa-solid fa-calendar-check"></i>
+            <h3>Book your ride</h3>
+            <p>Enter your destination and see your price instantly before booking.</p>
+        </div>
+        <div class="step">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            <h3>Confirm your booking</h3>
+            <p>If you have an account, we confirm right away. New customers confirm via email first.</p>
+        </div>
+        <div class="step">
+            <i class="fa-solid fa-user-tie"></i>
+            <h3>Driver assigned</h3>
+            <p>We match you with a driver and email you their contact details.</p>
+        </div>
+        <div class="step">
+            <i class="fa-solid fa-plane-arrival"></i>
+            <h3>Flight tracking</h3>
+            <p>We follow your flight – no need to worry about delays or early arrivals.</p>
+        </div>
+        <div class="step">
+            <i class="fa-solid fa-handshake"></i>
+            <h3>Meet your driver</h3>
+            <p>
+                Your driver texts you when you land and greets you with your name on an iPad.
+                Enjoy 1 hour of free waiting time after landing.
+            </p>
+        </div>
+    </div>
+
+    <div class="steps to-arlanda">
+        <div class="step">
+            <i class="fa-solid fa-calendar-check"></i>
+            <h3>Book your ride</h3>
+            <p>Enter your pickup address and see your fixed price before confirming your booking.</p>
+        </div>
+        <div class="step">
+            <i class="fa-solid fa-envelope"></i>
+            <h3>Confirm your booking</h3>
+            <p>Account holders get instant confirmation. New customers confirm via email first.</p>
+        </div>
+        <div class="step">
+            <i class="fa-solid fa-user-tie"></i>
+            <h3>Driver assigned</h3>
+            <p>After confirmation, we find a driver and send their details via email.</p>
+        </div>
+        <div class="step">
+            <i class="fa-solid fa-comments"></i>
+            <h3>Stay informed</h3>
+            <p>Your driver keeps in touch by SMS before pickup, so you’re always updated.</p>
+        </div>
+        <div class="step">
+            <i class="fa-solid fa-clock"></i>
+            <h3>Pickup & waiting time</h3>
+            <p>Your driver arrives 10 minutes early and includes 10 minutes of free waiting time.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <h2>Ready to book your trip?</h2>
+    <p>We look forward to taking you there.</p>
+    <a asp-controller="Booking" asp-action="Index" class="btn-primary">Book your ride now</a>
+</section>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.trip-buttons .btn-switch').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.btn-switch').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.steps').forEach(step => step.classList.remove('active'));
+                button.classList.add('active');
+                const target = button.getAttribute('data-target');
+                document.querySelector(`.${target}`).classList.add('active');
+            });
+        });
+    </script>
+}
+

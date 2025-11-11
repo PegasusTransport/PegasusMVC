@@ -1,0 +1,310 @@
+:root {
+    --oxford-blue: #032240;
+    --old-lace: #F9F0DF;
+    --orange: #E5723A;
+    --persian-green: #1EA896;
+}
+
+/* ================= HERO SECTION ================= */
+.hero {
+    background: url('https://github.com/PegasusTransport/Pictures/blob/main/StartSida%20picture.png?raw=true') center center / cover no-repeat;
+    color: #fff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 82vh;
+    padding: 0 8%;
+    text-align: left;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 34, 64, 0.50);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 42vh;
+    background: linear-gradient( to bottom, rgba(3, 34, 64, 0) 0%, rgba(3, 34, 64, 0.12) 40%, rgba(3, 34, 64, 0.25) 60%, rgba(3, 34, 64, 0.16) 80%, var(--old-lace) 100% );
+    z-index: 2;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    max-width: 50ch;
+    z-index: 3;
+    transform: translateY(-10%);
+}
+
+.hero h1 {
+    font-size: clamp(1.8rem, 3vw + 1rem, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.hero .subtitle {
+    font-size: clamp(1rem, 1.3vw + 0.8rem, 1.5rem);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    opacity: 0.95;
+    font-style: italic;
+    line-height: 1.4;
+    margin-bottom: 2.2rem;
+    transform: translateY(-12%);
+}
+
+.btn-primary {
+    background-color: var(--oxford-blue);
+    color: var(--old-lace);
+    padding: 0.8em 1.8em;
+    border-radius: 0.5em;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+    transform: translateY(50%);
+}
+
+.btn-primary:hover {
+    background-color: var(--orange);
+}
+
+/* ================= HOW IT WORKS SECTION ================= */
+.how-it-works {
+    background-color: var(--old-lace);
+    padding: 5rem 8%;
+    text-align: center;
+}
+
+.how-it-works h2 {
+    color: var(--oxford-blue);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    font-size: clamp(1.6rem, 2vw + 1rem, 2.2rem);
+}
+
+/* ================= TOGGLE BUTTONS ================= */
+.trip-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border: 2px solid var(--oxford-blue);
+    border-radius: 999px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto 2.5rem auto;
+    box-shadow: 0 3px 8px rgba(3, 34, 64, 0.08);
+}
+
+.btn-switch {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    color: var(--oxford-blue);
+    padding: 0.7em 0.6em;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    white-space: nowrap;
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.btn-switch i {
+    font-size: 1.1rem;
+    transition: transform 0.25s ease;
+}
+
+.btn-switch:hover i {
+    transform: translateY(-2px);
+}
+
+.btn-switch.active {
+    background: var(--oxford-blue);
+    color: white;
+}
+
+.btn-switch:not(.active):hover {
+    background: rgba(3, 34, 64, 0.05);
+}
+
+/* ================= STEPS GRID ================= */
+.steps {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    animation: fadeIn 0.4s ease;
+}
+
+.steps.active {
+    display: grid;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.step {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(3, 34, 64, 0.1);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(3, 34, 64, 0.15);
+}
+
+.step i {
+    font-size: 2rem;
+    color: var(--persian-green);
+    margin-bottom: 1rem;
+}
+
+.step h3 {
+    color: var(--oxford-blue);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.step p {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* ================= CTA SECTION ================= */
+.cta {
+    background: linear-gradient(to bottom, var(--old-lace) 0%, #ffffff 40%, var(--oxford-blue) 100%);
+    text-align: center;
+    padding: 5rem 8%;
+    color: var(--oxford-blue);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta h2 {
+    font-size: clamp(1.8rem, 2vw + 1rem, 2.4rem);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.cta p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.cta .btn-primary {
+    background-color: var(--orange);
+    color: white;
+    padding: 1em 2em;
+    font-size: 1.1rem;
+    border-radius: 999px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 14px rgba(3, 34, 64, 0.2);
+    transform: none;
+}
+
+.cta .btn-primary:hover {
+    background-color: var(--persian-green);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(3, 34, 64, 0.25);
+}
+
+.cta::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--oxford-blue));
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 700px) {
+    .trip-buttons {
+        flex-direction: column;
+        max-width: 250px;
+    }
+
+    .btn-switch {
+        width: 100%;
+        border-top: 1px solid rgba(3, 34, 64, 0.1);
+    }
+
+    .btn-switch:first-child {
+        border-top: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        flex-direction: column;
+        justify-content: center;
+        padding: 3rem 5%;
+    }
+
+    .hero-content {
+        transform: translateY(0);
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.4rem, 4vw + 0.8rem, 2rem);
+    }
+
+    .hero .subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+        transform: none;
+        padding: 0.7em 1.6em;
+        font-size: 1rem;
+    }
+
+    .cta {
+        padding: 4rem 5%;
+    }
+
+    .cta h2 {
+        font-size: 1.6rem;
+    }
+
+    .cta .btn-primary {
+        font-size: 1rem;
+        padding: 0.9em 1.6em;
+    }
+}
