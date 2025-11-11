@@ -18,7 +18,9 @@ namespace Pegasus_MVC.DiServices
             services.AddMemoryCache();
             services.AddHttpClient("PegasusServer", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7161/api/");
+
+                client.BaseAddress = new Uri("https://pegasustransportapi-c4dtcrfwgwcae6fw.swedencentral-01.azurewebsites.net/");
+                //client.BaseAddress = new Uri("https://localhost:7161/api/");
             });
             services.Configure<MvcOptions>(options =>
             {
