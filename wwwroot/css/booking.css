@@ -1,0 +1,273 @@
+﻿:root {
+    --oxford-blue: #032240;
+    --old-lace: #f9f0df;
+    --orange-crayola: #e5723a;
+    --persian-green: #1ea896;
+}
+
+.booking-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--oxford-blue) 0%, #054468 100%);
+    padding: 1rem 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.booking-card {
+    background: var(--old-lace);
+    border-radius: 0.75rem;
+    box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.3);
+    max-width: 42rem;
+    width: 100%;
+    padding: 1.5rem;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(1.875rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.booking-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.1875rem solid var(--persian-green);
+}
+
+    .booking-header h2 {
+        color: var(--oxford-blue);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .booking-header .subtitle {
+        color: var(--oxford-blue);
+        opacity: 0.7;
+        margin: 0;
+        font-size: 0.875rem;
+    }
+
+.trip-toggle-container {
+    display: flex;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #e0e0e0;
+    gap: 0;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.trip-toggle-btn {
+    background: #e0e0e0;
+    color: #666;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+    .trip-toggle-btn.active {
+        background: var(--persian-green);
+        color: white;
+    }
+
+    .trip-toggle-btn:hover:not(.active) {
+        background: #d0d0d0;
+    }
+
+.booking-form .form-label {
+    color: var(--oxford-blue);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    font-size: 0.825rem;
+}
+
+.booking-form .form-control {
+    border: 0.125rem solid #d4c5a9;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: white;
+    color: var(--oxford-blue);
+    transition: all 0.3s ease;
+    font-size: 0.825rem;
+}
+
+    .booking-form .form-control:focus {
+        border-color: var(--persian-green);
+        box-shadow: 0 0 0 0.2rem rgba(30, 168, 150, 0.15);
+        outline: none;
+    }
+
+    .booking-form .form-control::placeholder {
+        color: #999;
+        opacity: 0.7;
+    }
+
+.booking-form textarea.form-control {
+    resize: vertical;
+    min-height: 4rem;
+}
+
+.form-footer {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--persian-green) 0%, #17937f 100%);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 0.25rem 0.9375rem rgba(30, 168, 150, 0.3);
+}
+
+    .btn-submit:hover {
+        background: linear-gradient(135deg, #17937f 0%, var(--persian-green) 100%);
+        transform: translateY(-0.125rem);
+        box-shadow: 0 0.375rem 1.25rem rgba(30, 168, 150, 0.4);
+    }
+
+    .btn-submit:active {
+        transform: translateY(0);
+    }
+
+    .btn-submit svg {
+        transition: transform 0.3s ease;
+    }
+
+    .btn-submit:hover svg {
+        transform: translateX(0.3125rem);
+    }
+
+.text-danger {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    display: block;
+    min-height: 1rem;
+}
+
+#AddStopBtn {
+    background: linear-gradient(135deg, var(--orange-crayola) 0%, #d45a28 100%);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 0.25rem 0.75rem rgba(229, 114, 58, 0.3);
+    margin-bottom: 0.75rem;
+}
+
+    #AddStopBtn:hover {
+        background: linear-gradient(135deg, #d45a28 0%, var(--orange-crayola) 100%);
+        transform: translateY(-0.125rem);
+        box-shadow: 0 0.375rem 1rem rgba(229, 114, 58, 0.4);
+    }
+
+    #AddStopBtn:active {
+        transform: translateY(0);
+    }
+
+    #AddStopBtn::before {
+        content: '+';
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    #AddStopBtn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+        #AddStopBtn:disabled:hover {
+            transform: none;
+        }
+
+@media (max-width: 48rem) {
+    .booking-card {
+        padding: 1rem;
+    }
+
+    .booking-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .btn-submit {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .trip-toggle-container {
+        width: 100%;
+    }
+
+    .trip-toggle-btn {
+        flex: 1;
+        padding: 0.5rem;
+    }
+}
+
+.address-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 10rem;
+    overflow-y: auto;
+    z-index: 1000;
+    background-color: #fff;
+    border: 0.0625rem solid #ccc;
+    box-shadow: 0 0.125rem 0.375rem rgba(0,0,0,0.15);
+    border-radius: 0.25rem;
+    display: none;
+    font-size: 0.825rem;
+}
+
+    .address-suggestions .list-group-item {
+        cursor: pointer;
+        padding: 0.375rem 0.5rem;
+    }
+
+        .address-suggestions .list-group-item:hover {
+            background-color: #f1f1f1;
+        }
+
+.row {
+    margin-bottom: 0.75rem;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.mb-3 {
+    margin-bottom: 0.75rem !important;
+}

@@ -1,0 +1,134 @@
+﻿@using Pegasus_MVC.ViewModels
+@model BookingPreviewVM
+
+<div class="confirm-container">
+    <div class="confirm-card">
+        <div class="confirm-header">
+            <h2>Confirm Your Booking</h2>
+            <p class="subtitle">Please review your details below</p>
+        </div>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+        }
+
+        <form asp-controller="Booking" asp-action="ConfirmBooking" method="post">
+            <input type="hidden" name="stateId" value="@ViewBag.StateId" />
+
+            <div class="confirm-section customer-details">
+                <div class="section-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                    </svg>
+                </div>
+                <h3>Customer Details</h3>
+                <div class="detail-row">
+                    <span class="label">Name:</span>
+                    <span class="value">@Model.FirstName @Model.LastName</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Email:</span>
+                    <span class="value">@Model.Email</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Phone:</span>
+                    <span class="value">@Model.PhoneNumber</span>
+                </div>
+            </div>
+
+            <div class="confirm-section trip-details">
+                <div class="section-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.5 6.015V4.833a.5.5 0 1 0-1 0v1.182l-.793-.793a.5.5 0 0 0-.707.707l1.5 1.5a.5.5 0 0 0 .707 0l1.5-1.5a.5.5 0 0 0-.707-.707L8.5 6.015z" />
+                        <path d="M.5 9.5A.5.5 0 0 1 1 9h.5a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5zM2.5 9a.5.5 0 0 1 .5-.5h.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm2-.5a.5.5 0 0 0-.5.5.5.5 0 0 0 .5.5h.5a.5.5 0 0 0 .5-.5.5.5 0 0 0-.5-.5H4.5z" />
+                    </svg>
+                </div>
+                <h3>Trip Details</h3>
+                <div class="detail-row">
+                    <span class="label">Pickup Time:</span>
+                    <span class="value">@Model.PickUpDateTime.ToString("yyyy-MM-dd HH:mm")</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">From:</span>
+                    <span class="value">@Model.PickUpAddress</span>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.FirstStopAddress))
+                {
+                    <div class="detail-row">
+                        <span class="label">Stop 1:</span>
+                        <span class="value">@Model.FirstStopAddress</span>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.SecondStopAddress))
+                {
+                    <div class="detail-row">
+                        <span class="label">Stop 2:</span>
+                        <span class="value">@Model.SecondStopAddress</span>
+                    </div>
+                }
+
+                <div class="detail-row">
+                    <span class="label">To:</span>
+                    <span class="value">@Model.DropOffAddress</span>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Flightnumber))
+                {
+                    <div class="detail-row">
+                        <span class="label">Flight:</span>
+                        <span class="value">@Model.Flightnumber</span>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Comment))
+                {
+                    <div class="detail-row">
+                        <span class="label">Comment:</span>
+                        <span class="value">@Model.Comment</span>
+                    </div>
+                }
+            </div>
+
+            <div class="confirm-section price-section">
+                <div class="section-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z" />
+                    </svg>
+                </div>
+                <h3>Price Calculation</h3>
+                <div class="price-details">
+                    <div class="price-row">
+                        <span>Distance:</span>
+                        <span>@Model.DistanceKm.ToString("0.00") km</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Duration:</span>
+                        <span>@Model.DurationMinutes.ToString("0") minutes</span>
+                    </div>
+                    <div class="price-total">
+                        <span>Total Price:</span>
+                        <span>@Model.Price.ToString("0.00") SEK</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="confirm-actions">
+                <a asp-controller="Booking" asp-action="Index" class="btn-back">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                    </svg>
+                    Go Back
+                </a>
+                <button type="submit" class="btn-confirm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
+                    </svg>
+                    Confirm Booking
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
