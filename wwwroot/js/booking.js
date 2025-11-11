@@ -8,25 +8,40 @@
         this.setupAutocomplete('DropOffAddress');
         this.setupAddStopButton();
         this.updateFlightNumberVisibility();
+        this.restoreFormData();
         console.log('BookingApp initialized');
     },
 
     setupAddStopButton() {
         const btn = document.getElementById('AddStopBtn');
-        if (!btn) {
-            console.log('Add stop button not found');
-            return;
-        }
+        const firstStop = document.getElementById('optionalField1');
+        const secondStop = document.getElementById('optionalField2');
+        if (!btn) return;
+
+        const createRemoveButton = (field) => {
+            const removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.textContent = "Remove stop";
+            removeBtn.classList.add("btn-remove-stop");
+            removeBtn.addEventListener("click", () => {
+                field.style.display = "none";
+                field.querySelectorAll("input").forEach(i => i.value = "");
+                removeBtn.remove();
+                this.stops--;
+                btn.disabled = false;
+            });
+            return removeBtn;
+        };
 
         btn.addEventListener('click', () => {
             this.stops++;
-            console.log('Stops:', this.stops);
-
             if (this.stops === 1) {
-                document.getElementById('optionalField1').style.display = 'block';
+                firstStop.style.display = 'block';
+                firstStop.appendChild(createRemoveButton(firstStop));
                 this.setupAutocomplete('FirstStop');
             } else if (this.stops === 2) {
-                document.getElementById('optionalField2').style.display = 'block';
+                secondStop.style.display = 'block';
+                secondStop.appendChild(createRemoveButton(secondStop));
                 this.setupAutocomplete('SecStop');
                 btn.disabled = true;
             }
@@ -35,28 +50,22 @@
 
     updateFlightNumberVisibility() {
         const flightField = document.getElementById('flightNumberField');
-        if (flightField) {
+        if (flightField)
             flightField.style.display = this.currentDirection === 'from' ? 'block' : 'none';
-        }
     },
 
     setupAutocomplete(fieldId) {
         let sessionToken = crypto.randomUUID();
         const input = document.getElementById(fieldId);
         const suggestions = document.getElementById(`${fieldId}-suggestions`);
-
-        if (!input || !suggestions) {
-            return;
-        }
+        if (!input || !suggestions) return;
 
         let debounceTimer;
         let lastSelectedValue = '';
 
         input.addEventListener('input', () => {
-
-            if (input.value !== lastSelectedValue) {
+            if (input.value !== lastSelectedValue)
                 this.clearCoordinates(fieldId);
-            }
 
             clearTimeout(debounceTimer);
 
@@ -75,17 +84,12 @@
                             sessionToken: sessionToken
                         })
                     });
-
                     const result = await response.json();
                     const places = result.data?.suggestions || [];
-
                     this.showSuggestions(places, suggestions, input, fieldId, sessionToken);
-
-                } catch (error) {
-                }
+                } catch { }
             }, 800);
         });
-
 
         input.addEventListener('coordinatesSet', () => {
             lastSelectedValue = input.value;
@@ -93,19 +97,15 @@
     },
 
     clearCoordinates(fieldId) {
-        const placeIdField = document.getElementById(`${fieldId}PlaceId`);
-        const latField = document.getElementById(`${fieldId}Latitude`);
-        const lonField = document.getElementById(`${fieldId}Longitude`);
-
-        if (placeIdField) placeIdField.value = '';
-        if (latField) latField.value = '';
-        if (lonField) lonField.value = '';
+        ['PlaceId', 'Latitude', 'Longitude'].forEach(suffix => {
+            const el = document.getElementById(`${fieldId}${suffix}`);
+            if (el) el.value = '';
+        });
     },
 
     showSuggestions(places, container, input, fieldId, token) {
         container.innerHTML = '';
-
-        if (places.length === 0) {
+        if (!places.length) {
             container.style.display = 'none';
             return;
         }
@@ -115,22 +115,14 @@
             item.textContent = place.description;
             item.className = 'list-group-item list-group-item-action';
             item.style.cursor = 'pointer';
-
             item.addEventListener('click', async () => {
                 input.value = place.description;
                 container.style.display = 'none';
-
                 const placeIdField = document.getElementById(`${fieldId}PlaceId`);
-
-                if (placeIdField) {
-                    placeIdField.value = place.placeId;
-                }
-
+                if (placeIdField) placeIdField.value = place.placeId;
                 await this.getCoordinates(token, place.placeId, fieldId);
-
                 input.dispatchEvent(new CustomEvent('coordinatesSet'));
             });
-
             container.appendChild(item);
         });
 
@@ -142,16 +134,36 @@
             const params = new URLSearchParams({ placeId, sessionToken });
             const response = await fetch(`https://localhost:7161/api/Map/GetLongNLat?${params}`);
             const result = await response.json();
-
             if (result.data) {
-                const latField = document.getElementById(`${fieldId}Latitude`);
-                const lonField = document.getElementById(`${fieldId}Longitude`);
-
-                if (latField) latField.value = result.data.latitude;
-                if (lonField) lonField.value = result.data.longitude;
+                document.getElementById(`${fieldId}Latitude`).value = result.data.latitude;
+                document.getElementById(`${fieldId}Longitude`).value = result.data.longitude;
             }
-        } catch (error) {
-        }
+        } catch { }
+    },
+
+    restoreFormData() {
+        const form = document.getElementById("bookingForm");
+        if (!form) return;
+        const inputs = form.querySelectorAll("input, textarea, select");
+
+        inputs.forEach(input => {
+            const saved = localStorage.getItem(input.id);
+            if (saved) input.value = saved;
+        });
+
+        inputs.forEach(input => {
+            input.addEventListener("input", () => {
+                localStorage.setItem(input.id, input.value);
+            });
+        });
+
+        form.addEventListener("submit", () => {
+            inputs.forEach(input => localStorage.removeItem(input.id));
+        });
+
+        window.addEventListener("beforeunload", () => {
+            inputs.forEach(input => localStorage.setItem(input.id, input.value));
+        });
     }
 };
 
@@ -166,15 +178,19 @@ function setTripDirection(direction) {
     const toBtn = document.getElementById("toArlandaBtn");
     const fromBtn = document.getElementById("fromArlandaBtn");
 
-    const pickUpValue = document.getElementById("PickUpAddress");
-    const pickUpPlaceId = document.getElementById("PickUpAddressPlaceId");
-    const pickUpLat = document.getElementById("PickUpAddressLatitude");
-    const pickUpLng = document.getElementById("PickUpAddressLongitude");
+    const pickUp = {
+        val: document.getElementById("PickUpAddress"),
+        place: document.getElementById("PickUpAddressPlaceId"),
+        lat: document.getElementById("PickUpAddressLatitude"),
+        lng: document.getElementById("PickUpAddressLongitude")
+    };
 
-    const dropOffValue = document.getElementById("DropOffAddress");
-    const dropOffPlaceId = document.getElementById("DropOffAddressPlaceId");
-    const dropOffLat = document.getElementById("DropOffAddressLatitude");
-    const dropOffLng = document.getElementById("DropOffAddressLongitude");
+    const dropOff = {
+        val: document.getElementById("DropOffAddress"),
+        place: document.getElementById("DropOffAddressPlaceId"),
+        lat: document.getElementById("DropOffAddressLatitude"),
+        lng: document.getElementById("DropOffAddressLongitude")
+    };
 
     toBtn.classList.remove('active');
     fromBtn.classList.remove('active');
@@ -183,34 +199,39 @@ function setTripDirection(direction) {
         fromBtn.classList.add('active');
         BookingApp.currentDirection = 'from';
 
-        pickUpValue.value = arlandaData.name;
-        pickUpPlaceId.value = arlandaData.placeId;
-        pickUpLat.value = arlandaData.latitude;
-        pickUpLng.value = arlandaData.longitude;
+        pickUp.val.value = arlandaData.name;
+        pickUp.place.value = arlandaData.placeId;
+        pickUp.lat.value = arlandaData.latitude;
+        pickUp.lng.value = arlandaData.longitude;
 
-        dropOffValue.value = "";
-        dropOffPlaceId.value = "";
-        dropOffLat.value = "";
-        dropOffLng.value = "";
+        dropOff.val.value = "";
+        dropOff.place.value = "";
+        dropOff.lat.value = "";
+        dropOff.lng.value = "";
     } else {
         toBtn.classList.add('active');
         BookingApp.currentDirection = 'to';
 
-        pickUpValue.value = "";
-        pickUpPlaceId.value = "";
-        pickUpLat.value = "";
-        pickUpLng.value = "";
+        pickUp.val.value = "";
+        pickUp.place.value = "";
+        pickUp.lat.value = "";
+        pickUp.lng.value = "";
 
-        dropOffValue.value = arlandaData.name;
-        dropOffPlaceId.value = arlandaData.placeId;
-        dropOffLat.value = arlandaData.latitude;
-        dropOffLng.value = arlandaData.longitude;
+        dropOff.val.value = arlandaData.name;
+        dropOff.place.value = arlandaData.placeId;
+        dropOff.lat.value = arlandaData.latitude;
+        dropOff.lng.value = arlandaData.longitude;
     }
 
     BookingApp.updateFlightNumberVisibility();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing BookingApp');
-    BookingApp.init();
+document.addEventListener('DOMContentLoaded', () => BookingApp.init());
+
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        BookingApp.restoreFormData();
+    }
 });
+
+
