@@ -67,7 +67,7 @@
 
             debounceTimer = setTimeout(async () => {
                 try {
-                    const response = await fetch('https://localhost:7161/api/Map/AutoComplete', {
+                    const response = await fetch('https://pegasustransportapi-c4dtcrfwgwcae6fw.swedencentral-01.azurewebsites.net/api/Map/AutoComplete', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -140,7 +140,7 @@
     async getCoordinates(sessionToken, placeId, fieldId) {
         try {
             const params = new URLSearchParams({ placeId, sessionToken });
-            const response = await fetch(`https://localhost:7161/api/Map/GetLongNLat?${params}`);
+            const response = await fetch(`https://pegasustransportapi-c4dtcrfwgwcae6fw.swedencentral-01.azurewebsites.net/api/Map/GetLongNLat?${params}`);
             const result = await response.json();
 
             if (result.data) {
