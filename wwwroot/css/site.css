@@ -42,3 +42,36 @@ footer {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Oswald', sans-serif;
 }
+
+
+.swal2-popup {
+    border-radius: 1.5rem !important;
+    max-width: 90% !important;
+    box-shadow: 0 10px 25px rgba(3, 34, 64, 0.3) !important;
+}
+
+.swal2-title {
+    font-weight: 700 !important;
+    color: var(--oxford-blue) !important;
+}
+
+.swal2-html-container {
+    font-size: 1rem !important;
+    line-height: 1.5;
+    color: var(--oxford-blue) !important;
+}
+
+.swal2-confirm {
+    background-color: var(--persian-green) !important;
+    color: var(--old-lace) !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+    font-weight: 600 !important;
+    padding: 0.6rem 1.5rem !important;
+    transition: background-color 0.3s ease !important;
+}
+
+    .swal2-confirm:hover {
+        background-color: var(--orange-crayola) !important;
+    }
+

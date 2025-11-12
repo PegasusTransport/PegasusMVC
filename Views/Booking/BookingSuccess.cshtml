@@ -35,6 +35,20 @@
                     <span class="label">From:</span>
                     <span class="value">@Model.PickUpAddress</span>
                 </div>
+                @if (!string.IsNullOrWhiteSpace(Model.FirstStopAddress))
+                {
+                    <div class="summary-row">
+                        <span class="label">Stop 1:</span>
+                        <span class="value">@Model.FirstStopAddress</span>
+                    </div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.SecondStopAddress))
+                {
+                    <div class="summary-row">
+                        <span class="label">Stop 2:</span>
+                        <span class="value">@Model.SecondStopAddress</span>
+                    </div>
+                }
                 <div class="summary-row">
                     <span class="label">To:</span>
                     <span class="value">@Model.DropOffAddress</span>
@@ -44,6 +58,13 @@
                     <div class="summary-row">
                         <span class="label">Flight:</span>
                         <span class="value">@Model.Flightnumber</span>
+                    </div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Comment))
+                {
+                    <div class="summary-row">
+                        <span class="label">Comment:</span>
+                        <span class="value">@Model.Comment</span>
                     </div>
                 }
             </div>
@@ -78,3 +99,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        sessionStorage.clear();
+        localStorage.removeItem("BookingStops");
+        sessionStorage.removeItem("StopsCount");
+    });
+</script>
+

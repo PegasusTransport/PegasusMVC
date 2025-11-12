@@ -10,6 +10,14 @@
         this.updateFlightNumberVisibility();
         this.restoreFormData();
         console.log('BookingApp initialized');
+        const form = document.getElementById("bookingForm");
+        if (form) {
+            form.addEventListener("submit", () => {
+                this.saveStopsToLocalStorage();
+                window.sessionStorage.setItem("StopsCount", this.stops);
+            });
+        }
+
     },
 
     setupAddStopButton() {
@@ -37,10 +45,12 @@
             this.stops++;
             if (this.stops === 1) {
                 firstStop.style.display = 'block';
+                setTimeout(() => firstStop.classList.add('show'), 10);
                 firstStop.appendChild(createRemoveButton(firstStop));
                 this.setupAutocomplete('FirstStop');
             } else if (this.stops === 2) {
                 secondStop.style.display = 'block';
+                setTimeout(() => secondStop.classList.add('show'), 10);
                 secondStop.appendChild(createRemoveButton(secondStop));
                 this.setupAutocomplete('SecStop');
                 btn.disabled = true;
@@ -147,29 +157,28 @@
         const inputs = form.querySelectorAll("input, textarea, select");
 
         inputs.forEach(input => {
-            const saved = localStorage.getItem(input.id);
+            const saved = sessionStorage.getItem(input.id);
             if (saved) input.value = saved;
         });
 
         inputs.forEach(input => {
             input.addEventListener("input", () => {
-                localStorage.setItem(input.id, input.value);
+                sessionStorage.setItem(input.id, input.value);
             });
         });
 
-        form.addEventListener("submit", () => {
-            inputs.forEach(input => localStorage.removeItem(input.id));
-        });
+        this.restoreStopsFromLocalStorage();
 
         window.addEventListener("beforeunload", () => {
-            inputs.forEach(input => localStorage.setItem(input.id, input.value));
+            inputs.forEach(input => sessionStorage.setItem(input.id, input.value));
         });
     }
+
 };
 
 function setTripDirection(direction) {
     const arlandaData = {
-        name: "Arlanda Airport (ARN), Stockholm-Arlanda, Sverige",
+        name: "Arlanda (ARN), Terminal 5, Stockholm-Arlanda, Sverige",
         placeId: "ChIJ_YMtw2OdX0YRM1xOfqKV-FI",
         latitude: 59.6493928,
         longitude: 17.9342942
@@ -234,4 +243,119 @@ window.addEventListener('pageshow', (event) => {
     }
 });
 
+BookingApp.saveStopsToLocalStorage = function () {
+    const stops = [];
+    if (document.getElementById("FirstStop")?.value)
+        stops.push(document.getElementById("FirstStop").value);
+    if (document.getElementById("SecStop")?.value)
+        stops.push(document.getElementById("SecStop").value);
+    localStorage.setItem("BookingStops", JSON.stringify(stops));
+};
+
+BookingApp.restoreStopsFromLocalStorage = function () {
+    const saved = JSON.parse(localStorage.getItem("BookingStops") || "[]");
+    const savedCount = parseInt(sessionStorage.getItem("StopsCount") || "0");
+
+    if (savedCount > 0 && saved.length > 0) {
+        const btn = document.getElementById("AddStopBtn");
+        if (!btn) return;
+
+        saved.forEach((stop, i) => {
+            btn.click();
+            const id = i === 0 ? "FirstStop" : "SecStop";
+            const el = document.getElementById(id);
+            if (el) el.value = stop;
+        });
+    }
+};
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const pickupInput = document.querySelector("input[type='datetime-local'][name='PickUpDateTime']");
+    if (!pickupInput) return;
+
+    pickupInput.setAttribute("step", "300");
+
+    pickupInput.addEventListener("input", () => {
+        const value = pickupInput.value;
+        if (!value) return;
+
+        const date = new Date(value);
+        const minutes = date.getMinutes();
+        const remainder = minutes % 5;
+
+        if (remainder !== 0) {
+            const adjustedMinutes = minutes + (5 - remainder);
+            date.setMinutes(adjustedMinutes);
+            date.setSeconds(0, 0);
+            pickupInput.value = toLocalISO(date);
+        }
+    });
+
+    const now = new Date();
+    const minDate = new Date(now.getTime() + (48 * 60 + 5) * 60 * 1000);
+    const maxDate = new Date(now.getTime() + 60 * 24 * 60 * 60 * 1000);
+
+    const minutes = minDate.getMinutes();
+    const remainder = minutes % 5;
+    if (remainder !== 0) {
+        minDate.setMinutes(minutes + (remainder >= 2.5 ? 5 - remainder : -remainder));
+    }
+    minDate.setSeconds(0, 0);
+
+    function toLocalISO(date) {
+        const tzOffset = date.getTimezoneOffset() * 60000;
+        const local = new Date(date.getTime() - tzOffset);
+        return local.toISOString().slice(0, 16);
+    }
+
+
+    pickupInput.min = toLocalISO(minDate);
+    pickupInput.max = toLocalISO(maxDate);
+    pickupInput.value = toLocalISO(minDate);
+
+    pickupInput.addEventListener("change", () => {
+        const selected = new Date(pickupInput.value);
+        const minutes = selected.getMinutes();
+        const roundedMinutes = Math.round(minutes / 5) * 5;
+        selected.setMinutes(roundedMinutes);
+        selected.setSeconds(0, 0);
+
+        if (selected < minDate) {
+            Swal.fire({
+                icon: "warning",
+                title: "Too Early to Book",
+                html: `
+            <div class="swal-booking-warning">
+                <p>Bookings must be made at least <strong>48 hours</strong> in advance.</p>
+                <p class="swal-support-text">
+                    If you need a ride sooner, please call our support team.
+                </p>
+            </div>`,
+                confirmButtonText: "Okay, got it!",
+                background: "var(--old-lace)",
+                color: "var(--oxford-blue)",
+                customClass: {
+                    popup: "swal-booking-popup",
+                    confirmButton: "swal-confirm-btn"
+                },
+                backdrop: "rgba(3, 34, 64, 0.6)",
+                scrollbarPadding: false
+            }).then(() => {
+                pickupInput.value = toLocalISO(minDate);
+                pickupInput.dispatchEvent(new Event("input"));
+            });
+            return;
+        }
+
+        const step = 5;
+        const remainderStep = selected.getMinutes() % step;
+        if (remainderStep !== 0) {
+            const adjustedMinutes = selected.getMinutes() + (step - remainderStep);
+            selected.setMinutes(adjustedMinutes);
+            pickupInput.value = toLocalISO(selected);
+            pickupInput.dispatchEvent(new Event("input"));
+        }
+    });
+});
 
