@@ -19,7 +19,7 @@ namespace Pegasus_MVC.DiServices
             services.AddHttpClient("PegasusServer", client =>
             {
                 // Test
-                client.BaseAddress = new Uri("https://pegasustransportapi-c4dtcrfwgwcae6fw.swedencentral-01.azurewebsites.net/api/");
+                client.BaseAddress = new Uri("https://pegasusbackend.onrender.com/api/");
                 //client.BaseAddress = new Uri("https://localhost:7161/api/");
             });
             services.Configure<MvcOptions>(options =>
