@@ -5,7 +5,19 @@
     --persian-green: #1ea896;
 }
 
-/* === LAYOUT === */
+html {
+    overflow-y: scroll;
+}
+
+.section-icon svg.lucide {
+    width: 1.4rem;
+    height: 1.4rem;
+    stroke: white;
+    fill: none;
+    display: block;
+    transform: translateY(1px);
+}
+
 .booking-container {
     min-height: 100vh;
     background: linear-gradient(135deg, var(--oxford-blue) 0%, #054468 100%);
@@ -81,14 +93,14 @@
     white-space: nowrap;
 }
 
-    .trip-toggle-btn.active {
-        background: var(--persian-green);
-        color: white;
-    }
+.trip-toggle-btn.active {
+    background: var(--persian-green);
+    color: white;
+}
 
-    .trip-toggle-btn:hover:not(.active) {
-        background: #d0d0d0;
-    }
+.trip-toggle-btn:hover:not(.active) {
+    background: #d0d0d0;
+}
 
 /* === FORM === */
 .booking-form .form-label {
@@ -108,16 +120,16 @@
     font-size: 0.825rem;
 }
 
-    .booking-form .form-control:focus {
-        border-color: var(--persian-green);
-        box-shadow: 0 0 0 0.2rem rgba(30, 168, 150, 0.15);
-        outline: none;
-    }
+.booking-form .form-control:focus {
+    border-color: var(--persian-green);
+    box-shadow: 0 0 0 0.2rem rgba(30, 168, 150, 0.15);
+    outline: none;
+}
 
-    .booking-form .form-control::placeholder {
-        color: #999;
-        opacity: 0.7;
-    }
+.booking-form .form-control::placeholder {
+    color: #999;
+    opacity: 0.7;
+}
 
 .booking-form textarea.form-control {
     resize: vertical;
@@ -141,11 +153,11 @@
     box-shadow: 0 0.25rem 0.9375rem rgba(30, 168, 150, 0.3);
 }
 
-    .btn-submit:hover {
-        background: linear-gradient(135deg, #17937f 0%, var(--persian-green) 100%);
-        transform: translateY(-0.125rem);
-        box-shadow: 0 0.375rem 1.25rem rgba(30, 168, 150, 0.4);
-    }
+.btn-submit:hover {
+    background: linear-gradient(135deg, #17937f 0%, var(--persian-green) 100%);
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.375rem 1.25rem rgba(30, 168, 150, 0.4);
+}
 
 #AddStopBtn {
     background: linear-gradient(135deg, var(--orange-crayola) 0%, #d45a28 100%);
@@ -164,15 +176,15 @@
     margin-bottom: 0.75rem;
 }
 
-    #AddStopBtn:hover {
-        background: linear-gradient(135deg, #d45a28 0%, var(--orange-crayola) 100%);
-        transform: translateY(-0.125rem);
-    }
+#AddStopBtn:hover {
+    background: linear-gradient(135deg, #d45a28 0%, var(--orange-crayola) 100%);
+    transform: translateY(-0.125rem);
+}
 
-    #AddStopBtn:disabled {
-        background: #ccc;
-        cursor: not-allowed;
-    }
+#AddStopBtn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
 
 /* === REMOVE STOP BUTTON === */
 .btn-remove-stop {
@@ -190,11 +202,11 @@
     display: inline-block;
 }
 
-    .btn-remove-stop:hover {
-        background: linear-gradient(135deg, #054468 0%, var(--oxford-blue) 100%);
-        transform: translateY(-0.1rem);
-        box-shadow: 0 0.35rem 1rem rgba(3, 34, 64, 0.4);
-    }
+.btn-remove-stop:hover {
+    background: linear-gradient(135deg, #054468 0%, var(--oxford-blue) 100%);
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.35rem 1rem rgba(3, 34, 64, 0.4);
+}
 
 /* === AUTOCOMPLETE === */
 .address-suggestions {
@@ -213,14 +225,88 @@
     font-size: 0.825rem;
 }
 
-    .address-suggestions .list-group-item {
-        cursor: pointer;
-        padding: 0.375rem 0.5rem;
-    }
+.address-suggestions .list-group-item {
+    cursor: pointer;
+    padding: 0.375rem 0.5rem;
+}
 
-        .address-suggestions .list-group-item:hover {
-            background-color: #f1f1f1;
-        }
+.address-suggestions .list-group-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* === ADD STOP BUTTON FULL WIDTH === */
+#AddStopBtn {
+    background: linear-gradient(135deg, var(--orange-crayola) 0%, #d45a28 100%);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: block;
+    text-align: center;
+    box-shadow: 0 0.25rem 0.75rem rgba(229, 114, 58, 0.3);
+}
+
+#AddStopBtn:hover {
+    background: linear-gradient(135deg, #d45a28 0%, var(--orange-crayola) 100%);
+    transform: translateY(-0.125rem);
+}
+
+/* === STOP FIELD WIDTH FIX === */
+.stop-field {
+    width: 100%;
+    display: block;
+}
+
+.stop-field .form-control {
+    width: 100%;
+}
+
+/* === REMOVE STOP BUTTON === */
+.btn-remove-stop {
+    background: linear-gradient(135deg, var(--oxford-blue) 0%, #054468 100%);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.45rem 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    box-shadow: 0 0.25rem 0.75rem rgba(3, 34, 64, 0.3);
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-remove-stop:hover {
+    background: linear-gradient(135deg, #054468 0%, var(--oxford-blue) 100%);
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.35rem 1rem rgba(3, 34, 64, 0.4);
+}
+
+
+/* === STOP FIELDS ANIMATION === */
+.stop-field {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+    height: 0;
+    overflow: hidden;
+}
+
+.stop-field.show {
+    opacity: 1;
+    transform: translateY(0);
+    height: auto;
+    overflow: visible;
+}
+
 
 /* === RESPONSIVE === */
 @media (max-width: 48rem) {
@@ -242,3 +328,20 @@
         padding: 0.5rem;
     }
 }
+
+@media (max-width: 25rem) {
+    .booking-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .trip-toggle-btn {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .btn-submit {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+    }
+}
+

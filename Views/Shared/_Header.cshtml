@@ -3,6 +3,10 @@
     var action = ViewContext.RouteData.Values["Action"]?.ToString();
 }
 
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Config
+
+
 <header>
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container-fluid px-lg-5 justify-content-center">
@@ -33,7 +37,7 @@
                     </li>
                     <li class="nav-item">
                         @* Add Vue login page link here later *@
-                        <a class="nav-link">LOGIN</a>
+                        <a class="nav-link" href="https://@Config["LoginPageLink"]">LOGIN</a>
                     </li>
                 </ul>
 
