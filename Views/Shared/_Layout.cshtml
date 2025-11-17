@@ -21,23 +21,15 @@
     <link rel="stylesheet" href="~/css/booking.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/confirm-succes.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/cookie-banner.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="04a26ac4-889d-40b6-9b32-4fbb1183c865" data-blockingmode="auto" type="text/javascript"></script>
-    <!-- Google tag -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M01C5FP9YV"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-M01C5FP9YV');
-    </script>
 
 </head>
 <body>
     <partial name="_Header" />
+    <partial name="_CookieBanner" />
+
     <main role="main">
         @RenderBody()
     </main>
@@ -45,8 +37,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/cookie-consent.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    
   
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    
