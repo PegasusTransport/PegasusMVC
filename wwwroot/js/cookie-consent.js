@@ -35,19 +35,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function deleteGoogleAnalyticsCookies() {
-    // Lista över Google Analytics cookies
     const gaCookies = ['_ga', '_gid', '_gat', '_gat_gtag_G_M01C5FP9YV', '_ga_M01C5FP9YV'];
 
-    // Radera varje cookie
     gaCookies.forEach(function (cookieName) {
-        // Radera för nuvarande domain
         document.cookie = cookieName + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
-        // Radera för root domain (om du har subdomäner)
         const domain = window.location.hostname;
         document.cookie = cookieName + '=; Path=/; Domain=' + domain + '; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
-        // Radera för .domain (wildcard)
         document.cookie = cookieName + '=; Path=/; Domain=.' + domain + '; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     });
 
