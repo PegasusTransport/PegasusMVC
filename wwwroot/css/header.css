@@ -106,49 +106,48 @@
         margin-top: 0.75rem;
     }
 
-    @media (max-width: 991px) {
-        .custom-navbar .container-fluid {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar-brand.logo-containers {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .navbar-toggler {
-            border-color: var(--old-lace);
-            padding: 0.15rem 0.4rem;
-            font-size: 0.8rem;
-        }
-        .navbar-toggler-icon {
-            width: 1rem;
-            height: 1rem;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(249, 240, 223, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(249, 240, 223, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M6 6l18 18M6 24L24 6'/%3e%3c/svg%3e");
-        }
-
-        .navbar-nav {
-            margin-top: 0.75rem;
-            gap: 0.75rem;
-        }
-
-        .bookingLink {
-            margin-top: 0.75rem;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .logoText {
-            display: none;
-        }
+    .custom-navbar .container-fluid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-   
+
+    .navbar-brand.logo-containers {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 0.8rem;
+    }
+
+    .navbar-toggler {
+        border-color: var(--old-lace);
+        padding: 0.15rem 0.4rem;
+        font-size: 0.8rem;
+    }
+    .navbar-toggler-icon {
+        width: 1rem;
+        height: 1rem;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(249, 240, 223, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(249, 240, 223, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M6 6l18 18M6 24L24 6'/%3e%3c/svg%3e");
+    }
+
+    .navbar-nav {
+        margin-top: 0.75rem;
+        gap: 0.75rem;
+    }
+
+    .bookingLink {
+        margin-top: 0.75rem;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .logoText {
+        display: none;
+    }
 }
+   
