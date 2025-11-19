@@ -18,5 +18,10 @@ namespace Pegasus_MVC.Controllers
         {
             return View();
         }
+
+        public IActionResult FAQ()
+        {
+            return View();
+        }
     }
 }

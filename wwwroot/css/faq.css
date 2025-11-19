@@ -1,0 +1,89 @@
+:root {
+    --oxford-blue: #032240;
+    --old-lace: #F9F0DF;
+    --orange-crayola: #E5723A;
+    --persian-green: #1EA896;
+}
+
+.faq-hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-hero-img {
+    width: 100%;
+    height: 45vh;
+    object-fit: cover;
+    filter: brightness(70%);
+}
+
+.faq-hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-inline: 2vw;
+    color: var(--old-lace);
+    margin-top: -6em;
+}
+
+    .faq-hero-overlay h1 {
+        font-size: clamp(1.8rem, 3vw + 1rem, 3.2rem);
+        text-shadow: 0 0.3em 1em rgba(0, 0, 0, 0.5);
+    }
+
+.faq-section {
+    background-color: var(--old-lace);
+    color: var(--oxford-blue);
+}
+
+.faq-container {
+    max-width: 60rem;
+    margin-inline: auto;
+    padding-inline: 3vw;
+}
+
+.faq-accordion .accordion-item {
+    border: 2px solid var(--oxford-blue);
+    border-radius: 0.6rem;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+    background: white;
+}
+
+
+.faq-accordion .accordion-button {
+    background-color: var(--oxford-blue);
+    color: var(--old-lace);
+    font-weight: 600;
+}
+
+    .faq-accordion .accordion-button:hover {
+        background-color: var(--orange-crayola);
+    }
+
+    .faq-accordion .accordion-button:not(.collapsed) {
+        background-color: var(--orange-crayola);
+        color: white;
+    }
+
+.faq-accordion .accordion-body {
+    background: white;
+    color: var(--oxford-blue);
+}
+
+.faq-btn {
+    background-color: var(--oxford-blue);
+    color: white;
+    border: none;
+    padding: 0.6em 1.4em;
+    border-radius: 0.4em;
+    transition: 0.3s ease;
+}
+
+    .faq-btn:hover {
+        background-color: var(--persian-green);
+    }

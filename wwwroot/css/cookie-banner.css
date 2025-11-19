@@ -4,8 +4,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #333;
-    color: white;
+    background: var(--oxford-blue);
+    color: var(--old-lace);
     padding: 1.25rem;
     z-index: 9999;
 }
@@ -30,7 +30,8 @@
     }
 
     .cookie-content a {
-        color: #4a9eff;
+        color: var(--persian-green);
+        font-weight: 600;
     }
 
 .cookie-buttons {
@@ -41,25 +42,28 @@
     .cookie-buttons button {
         padding: 0.625em 1.25em;
         border: none;
-        border-radius: 0.25rem;
+        border-radius: 0.35rem;
         cursor: pointer;
-        font-weight: 600;
+        font-weight: 700;
         font-size: 1rem;
+        transition: 0.3s ease;
     }
 
         .cookie-buttons button:first-child {
-            background: #666;
-            color: white;
+            background: var(--old-lace);
+            color: var(--oxford-blue);
         }
 
-        .cookie-buttons button:last-child {
-            background: #27ae60;
-            color: white;
-        }
+    .cookie-buttons button:last-child {
+        background: var(--orange-crayola);
+        color: #fff;
+        box-shadow: 0 3px 10px rgba(229, 114, 58, 0.4);
+    }
 
-        .cookie-buttons button:hover {
-            opacity: 0.9;
-        }
+    .cookie-buttons button:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
 
 @media (max-width: 48rem) {
     .cookie-content {
