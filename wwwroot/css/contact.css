@@ -41,75 +41,87 @@
     background-color: #F9F0DF;
 }
 
-/* Contact Info Card */
+/* CONTACT INFO CARD */
 .contact-info-card {
     background: white;
     padding: 2.5rem;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
-
-    .contact-info-card h2 {
-        color: #032240;
-        font-family: 'Oswald', sans-serif;
-    }
 
 .contact-info-item {
     display: flex;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: 1.3rem;
+    padding: 1.4rem 1.2rem;
     margin-bottom: 1rem;
-    background: #F9F0DF;
-    border-radius: 10px;
-    transition: all 0.3s ease;
+    background: var(--old-lace);
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
 }
 
-    .contact-info-item:hover {
-        background: #1EA896;
-        transform: translateX(5px);
-    }
+.contact-info-item:hover {
+    background: white;
+    border-color: var(--persian-green);
+    transform: translateX(6px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+}
 
-        .contact-info-item:hover h5,
-        .contact-info-item:hover p,
-        .contact-info-item:hover a {
-            color: white;
-        }
+.contact-info-item:hover .contact-icon {
+    background: var(--persian-green);
+}
+
+.contact-info-item:hover h5,
+.contact-info-item:hover p,
+.contact-info-item:hover a {
+    color: var(--oxford-blue);
+}
 
 .contact-icon {
-    flex-shrink: 0;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #E5723A 0%, #E5723A 100%);
+    width: 48px;
+    height: 48px;
+    background: var(--orange-crayola);
     border-radius: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     color: white;
+    font-size: 1.2rem;
+    transition: background 0.25s ease;
 }
 
 .contact-info-item h5 {
-    color: #032240;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    transition: color 0.3s ease;
+    color: var(--oxford-blue);
+    font-size: 1.05rem;
+    margin-bottom: 0.35rem;
 }
 
-.contact-info-item p {
-    color: #032240;
-    transition: color 0.3s ease;
-}
-
+.contact-info-item p,
 .contact-info-item a {
-    color: #E5723A;
+    color: var(--oxford-blue);
+    font-size: 0.95rem;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
 }
 
     .contact-info-item a:hover {
-        color: #1EA896;
-        text-decoration: underline;
+        color: var(--orange-crayola);
     }
+
+@media (max-width: 991px) {
+    .contact-info-card {
+        padding: 1.8rem;
+    }
+
+    .contact-info-item {
+        padding: 1.1rem;
+    }
+
+    .contact-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+    }
+}
 
 /* Contact Form Card */
 .contact-form-card {
@@ -119,10 +131,10 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-    .contact-form-card h2 {
-        color: #032240;
-        font-family: 'Oswald', sans-serif;
-    }
+.contact-form-card h2 {
+    color: #032240;
+    font-family: 'Oswald', sans-serif;
+}
 
 .contact-input {
     border: 2px solid #F9F0DF;
@@ -169,23 +181,23 @@
     box-shadow: 0 4px 15px rgba(229, 114, 58, 0.3);
 }
 
-    .contact-submit-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(229, 114, 58, 0.4);
-        background: linear-gradient(135deg, #1EA896 0%, #1EA896 100%);
-    }
+.contact-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(229, 114, 58, 0.4);
+    background: linear-gradient(135deg, #1EA896 0%, #1EA896 100%);
+}
 
-    .contact-submit-btn:active {
-        transform: translateY(0);
-    }
+.contact-submit-btn:active {
+    transform: translateY(0);
+}
 
-    .contact-submit-btn svg {
-        transition: transform 0.3s ease;
-    }
+.contact-submit-btn svg {
+    transition: transform 0.3s ease;
+}
 
-    .contact-submit-btn:hover svg {
-        transform: translateX(5px);
-    }
+.contact-submit-btn:hover svg {
+    transform: translateX(5px);
+}
 
 /* Map Container */
 .map-container {
