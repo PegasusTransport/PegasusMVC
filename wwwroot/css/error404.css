@@ -1,0 +1,86 @@
+html {
+    font-size: 14px;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100%;
+}
+
+html, body {
+    background: none !important;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@supports (padding: env(safe-area-inset-top)) {
+    body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: auto;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif;
+}
+
+.swal2-popup {
+    border-radius: 1.5rem !important;
+    max-width: 90% !important;
+    box-shadow: 0 10px 25px rgba(3, 34, 64, 0.3) !important;
+}
+
+.swal2-title {
+    font-weight: 700 !important;
+    color: var(--oxford-blue) !important;
+}
+
+.swal2-html-container {
+    font-size: 1rem !important;
+    line-height: 1.5;
+    color: var(--oxford-blue) !important;
+}
+
+.swal2-confirm {
+    background-color: var(--persian-green) !important;
+    color: var(--old-lace) !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+    font-weight: 600 !important;
+    padding: 0.6rem 1.5rem !important;
+    transition: background-color 0.3s ease !important;
+}
+
+    .swal2-confirm:hover {
+        background-color: var(--orange-crayola) !important;
+    }

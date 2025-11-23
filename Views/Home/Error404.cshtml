@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page Not Found - Pegasus Transport</title>
+
+    <link href="~/css/error404.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="crash-container">
+
+        <div class="error-text shake">
+            <h1>404</h1>
+            <h2>Oops! Something went wrong</h2>
+            <p>The taxi seems to have crashed into a wall…</p>
+        </div>
+
+        <div class="scene">
+
+            <div class="road">
+                <div class="road-lines"></div>
+            </div>
+
+            <div class="wall">
+                <div class="wall-cracks" id="cracks"></div>
+            </div>
+
+            <div class="taxi crashed" id="taxi">
+                <div class="taxi-body"></div>
+                <div class="taxi-roof"></div>
+                <div class="taxi-sign">TAXI</div>
+
+                <div class="taxi-windows">
+                    <div class="window side"></div>
+                    <div class="window front"></div>
+                </div>
+
+                <div class="taxi-lights">
+                    <div class="headlight"></div>
+                    <div class="taillight"></div>
+                </div>
+
+                <div class="wheels">
+                    <div class="wheel back-wheel"></div>
+                    <div class="wheel front-wheel"></div>
+                </div>
+            </div>
+
+            <div class="crash-effects">
+                <div class="debris debris-1"></div>
+                <div class="debris debris-2"></div>
+                <div class="debris debris-3"></div>
+                <div class="smoke"></div>
+            </div>
+
+            <div class="hidden-button" id="homeButtonContainer">
+                <a href="/" class="home-button">Go Back Home</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Visa sprickor + knappen efter kraschen
+        setTimeout(() => {
+            document.getElementById("cracks").classList.add("show-cracks");
+            document.getElementById("homeButtonContainer").classList.add("revealed");
+        }, 2300);
+    </script>
+
+</body>
+</html>
