@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const now = new Date();
     const minDate = new Date(now.getTime() + (48 * 60 + 5) * 60 * 1000);
-    const maxDate = new Date(now.getTime() + 60 * 24 * 60 * 60 * 1000);
+    const maxDate = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000);
 
     const minutes = minDate.getMinutes();
     const remainder = minutes % 5;

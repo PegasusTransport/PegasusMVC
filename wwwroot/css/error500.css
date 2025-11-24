@@ -1,4 +1,3 @@
-/* Reset för att inte ta med din vanliga layout */
 html, body {
     all: unset !important;
     display: block !important;
@@ -8,7 +7,6 @@ html, body {
     padding: 0 !important;
 }
 
-/* Container & bakgrund */
 .error500-container {
     width: 100vw;
     height: 100vh;
@@ -24,7 +22,6 @@ html, body {
     height: 100%;
 }
 
-/* Road */
 .road-500 {
     position: absolute;
     bottom: 0;
@@ -45,7 +42,6 @@ html, body {
     transform: translateY(-50%);
 }
 
-/* Text */
 .error500-text {
     position: absolute;
     top: 25%;
@@ -77,7 +73,6 @@ html, body {
         opacity: 0.8;
     }
 
-/* Taxi (stoppad) */
 .taxi-500 {
     position: absolute;
     bottom: 200px;
@@ -176,7 +171,6 @@ html, body {
     border-radius: 50%;
 }
 
-/* Taxi wheels */
 .taxi-500-wheels {
     position: absolute;
     bottom: 20px;
@@ -212,7 +206,6 @@ html, body {
         right: 15px;
     }
 
-/* Police car */
 .police-car {
     position: absolute;
     bottom: 210px;
@@ -256,7 +249,6 @@ html, body {
     border-radius: 4px;
 }
 
-/* Siren */
 .police-siren {
     position: absolute;
     top: -20px;
@@ -280,7 +272,6 @@ html, body {
     animation: sirenGlow 2.4s ease-out forwards;
 }
 
-/* Police windows */
 .police-windows {
     position: absolute;
     top: 5px;
@@ -307,7 +298,6 @@ html, body {
         left: 26px;
     }
 
-/* Police lights */
 .police-lights {
     position: relative;
 }
@@ -333,7 +323,6 @@ html, body {
     border-radius: 50%;
 }
 
-/* Police wheels */
 .police-wheels {
     position: absolute;
     bottom: 18px;
@@ -370,7 +359,6 @@ html, body {
         right: 18px;
     }
 
-/* Knapp */
 .hidden-button-500 {
     position: absolute;
     bottom: 300px;
@@ -407,7 +395,6 @@ html, body {
         box-shadow: 0 6px 12px rgba(3, 34, 64, 0.4);
     }
 
-/* Animationer */
 @keyframes policeChase {
     0% {
         left: -200px;
