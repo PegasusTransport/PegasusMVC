@@ -1,0 +1,567 @@
+/* Reset för att inte ta med din vanliga layout */
+html, body {
+    all: unset !important;
+    display: block !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Container & bakgrund */
+.error500-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #032240 0%, #1ea896 50%, #f9f0df 100%);
+    position: relative;
+    font-family: 'Arial', sans-serif;
+}
+
+.scene-500 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Road */
+.road-500 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: #032240;
+    border-top: 5px solid #1ea896;
+}
+
+.road-500-lines {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: repeating-linear-gradient( to right, transparent 0px, transparent 20px, #f9f0df 20px, #f9f0df 40px );
+    transform: translateY(-50%);
+}
+
+/* Text */
+.error500-text {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #032240;
+    z-index: 10;
+}
+
+    .error500-text h1 {
+        font-size: 6rem;
+        margin: 0;
+        font-weight: bold;
+        color: #e5723a;
+        text-shadow: 3px 3px 0 #1ea896;
+    }
+
+    .error500-text h2 {
+        font-size: 1.8rem;
+        margin: 1rem 0;
+        color: #032240;
+    }
+
+    .error500-text p {
+        font-size: 1.2rem;
+        margin: 1rem 0 2rem 0;
+        color: #032240;
+        opacity: 0.8;
+    }
+
+/* Taxi (stoppad) */
+.taxi-500 {
+    position: absolute;
+    bottom: 200px;
+    right: 80px;
+    width: 120px;
+    height: 60px;
+    z-index: 5;
+}
+
+    .taxi-500.nervous {
+        animation: taxiShake 0.25s ease-in-out infinite;
+    }
+
+
+.taxi-500-body {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background: #FFD700;
+    border-radius: 8px 8px 4px 4px;
+    border: 2px solid #FFA500;
+}
+
+.taxi-500-roof {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    width: 60px;
+    height: 15px;
+    background: #FFD700;
+    border: 2px solid #FFA500;
+    border-radius: 8px 8px 0 0;
+}
+
+.taxi-500-sign {
+    position: absolute;
+    top: -32px;
+    left: 30px;
+    background: #032240;
+    color: #f9f0df;
+    padding: 2px 8px;
+    font-size: 8px;
+    font-weight: bold;
+    border-radius: 8px 8px 8px 8px;
+    border: 1px solid #1ea896;
+}
+
+.taxi-500-windows {
+    position: absolute;
+    top: 5px;
+    left: 25px;
+}
+
+.taxi-500-window {
+    background: #f9f0df;
+    border: 1px solid #1ea896;
+    border-radius: 2px;
+}
+
+    .taxi-500-window.side {
+        width: 20px;
+        height: 12px;
+        position: absolute;
+        left: 0;
+    }
+
+    .taxi-500-window.front {
+        width: 15px;
+        height: 12px;
+        position: absolute;
+        left: 25px;
+    }
+
+.taxi-500-lights {
+    position: relative;
+}
+
+.taxi-500-headlight {
+    position: absolute;
+    right: -2px;
+    top: 15px;
+    width: 6px;
+    height: 6px;
+    background: #FFFACD;
+    border-radius: 50%;
+    border: 1px solid #FFD700;
+}
+
+.taxi-500-taillight {
+    position: absolute;
+    left: -2px;
+    top: 15px;
+    width: 4px;
+    height: 4px;
+    background: #e5723a;
+    border-radius: 50%;
+}
+
+/* Taxi wheels */
+.taxi-500-wheels {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+.taxi-500-wheel {
+    width: 20px;
+    height: 20px;
+    background: #032240;
+    border-radius: 50%;
+    position: absolute;
+    border: 3px solid #1ea896;
+}
+
+    .taxi-500-wheel::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        background: #e5723a;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .taxi-500-wheel.back {
+        left: 15px;
+    }
+
+    .taxi-500-wheel.front {
+        right: 15px;
+    }
+
+/* Police car */
+.police-car {
+    position: absolute;
+    bottom: 210px;
+    left: -200px;
+    width: 130px;
+    height: 60px;
+    z-index: 6;
+    animation: policeChase 2.4s ease-out forwards;
+}
+
+.police-body {
+    position: relative;
+    width: 100%;
+    height: 38px;
+    background: #ffffff;
+    border-radius: 8px 8px 4px 4px;
+    border: 2px solid #032240;
+    box-shadow: 0 0 0 3px #1ea896;
+}
+
+.police-roof {
+    position: absolute;
+    top: -15px;
+    left: 25px;
+    width: 60px;
+    height: 15px;
+    background: #ffffff;
+    border: 2px solid #032240;
+    border-radius: 8px 8px 0 0;
+}
+
+.police-label {
+    position: absolute;
+    top: 6px;
+    left: 36px;
+    font-size: 8px;
+    font-weight: bold;
+    color: #ffffff;
+    background: #032240;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Siren */
+.police-siren {
+    position: absolute;
+    top: -20px;
+    left: 42px;
+    width: 26px;
+    height: 10px;
+    background: linear-gradient(to right, #e53935 0%, #e53935 50%, #1e88e5 50%, #1e88e5 100%);
+    border-radius: 3px;
+    animation: sirenFlash 0.3s linear infinite;
+}
+
+.siren-glow {
+    position: absolute;
+    bottom: 260px;
+    left: 120px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    animation: sirenGlow 2.4s ease-out forwards;
+}
+
+/* Police windows */
+.police-windows {
+    position: absolute;
+    top: 5px;
+    left: 25px;
+}
+
+.police-window {
+    background: #cde7ff;
+    border: 1px solid #032240;
+    border-radius: 2px;
+}
+
+    .police-window.side {
+        width: 22px;
+        height: 12px;
+        position: absolute;
+        left: 0;
+    }
+
+    .police-window.front {
+        width: 16px;
+        height: 12px;
+        position: absolute;
+        left: 26px;
+    }
+
+/* Police lights */
+.police-lights {
+    position: relative;
+}
+
+.police-headlight {
+    position: absolute;
+    right: -3px;
+    top: 15px;
+    width: 7px;
+    height: 7px;
+    background: #FFFACD;
+    border-radius: 50%;
+    border: 1px solid #FFD700;
+}
+
+.police-taillight {
+    position: absolute;
+    left: -3px;
+    top: 15px;
+    width: 5px;
+    height: 5px;
+    background: #e53935;
+    border-radius: 50%;
+}
+
+/* Police wheels */
+.police-wheels {
+    position: absolute;
+    bottom: 18px;
+    width: 100%;
+}
+
+.police-wheel {
+    width: 20px;
+    height: 20px;
+    background: #032240;
+    border-radius: 50%;
+    position: absolute;
+    border: 3px solid #1ea896;
+    animation: wheelSpin 0.3s linear infinite;
+}
+
+    .police-wheel::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        background: #e5723a;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .police-wheel.back {
+        left: 18px;
+    }
+
+    .police-wheel.front {
+        right: 18px;
+    }
+
+/* Knapp */
+.hidden-button-500 {
+    position: absolute;
+    bottom: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 7;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+    .hidden-button-500.revealed {
+        opacity: 1;
+        animation: buttonBounceIn 0.6s ease-out;
+    }
+
+.home-button-500 {
+    background: #1ea896;
+    border: 3px solid #032240;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #f9f0df;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(3, 34, 64, 0.3);
+    text-decoration: none;
+}
+
+    .home-button-500:hover {
+        background: #e5723a;
+        border-color: #1ea896;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(3, 34, 64, 0.4);
+    }
+
+/* Animationer */
+@keyframes policeChase {
+    0% {
+        left: -200px;
+        transform: translateX(0);
+    }
+
+    70% {
+        left: calc(100vw - 320px);
+        transform: translateX(0);
+    }
+
+    85% {
+        left: calc(100vw - 310px);
+        transform: translateX(3px);
+    }
+
+    100% {
+        left: calc(100vw - 320px);
+        transform: translateX(0);
+    }
+}
+
+@keyframes sirenFlash {
+    0% {
+        opacity: 1;
+        filter: brightness(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        filter: brightness(1.5);
+    }
+
+    100% {
+        opacity: 1;
+        filter: brightness(1);
+    }
+}
+
+@keyframes sirenGlow {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes wheelSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes taxiShake {
+    0% {
+        transform: translateX(0);
+    }
+
+    15% {
+        transform: translateX(-4px);
+    }
+
+    30% {
+        transform: translateX(4px);
+    }
+
+    45% {
+        transform: translateX(-3px);
+    }
+
+    60% {
+        transform: translateX(3px);
+    }
+
+    75% {
+        transform: translateX(-2px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes buttonBounceIn {
+    0% {
+        transform: translateX(-50%) scale(0);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.1);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+@keyframes textShake {
+    0%, 100% {
+        transform: translate(-50%, -50%);
+    }
+
+    10%, 30%, 50%, 70%, 90% {
+        transform: translate(-52%, -50%);
+    }
+
+    20%, 40%, 60%, 80% {
+        transform: translate(-48%, -50%);
+    }
+}
+
+/* Responsivt */
+@media (max-width: 768px) {
+    .error500-text h1 {
+        font-size: 4rem;
+    }
+
+    .error500-text h2 {
+        font-size: 1.4rem;
+    }
+
+    .error500-text p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .taxi-500 {
+        width: 90px;
+        height: 45px;
+        right: 40px;
+        bottom: 190px;
+    }
+
+    .police-car {
+        width: 100px;
+        height: 50px;
+        bottom: 195px;
+    }
+
+    .hidden-button-500 {
+        bottom: 260px;
+    }
+}

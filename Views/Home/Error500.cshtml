@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Server Error - Pegasus Transport</title>
+    <base href="/" />
+    <link href="~/css/error500.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="error500-container">
+
+        <div class="error500-text shake">
+            <h1>500</h1>
+            <h2>Oops! Our system got pulled over</h2>
+            <p>
+                The Pegasus taxi was driving fine, but the code police stopped the server for a quick check.
+            </p>
+        </div>
+
+        <div class="scene-500">
+
+            <div class="road-500">
+                <div class="road-500-lines"></div>
+            </div>
+
+            <!-- Taxi (stopped) -->
+            <div class="taxi-500" id="taxi500">
+                <div class="taxi-500-body"></div>
+                <div class="taxi-500-roof"></div>
+                <div class="taxi-500-sign">TAXI</div>
+
+                <div class="taxi-500-windows">
+                    <div class="taxi-500-window side"></div>
+                    <div class="taxi-500-window front"></div>
+                </div>
+
+                <div class="taxi-500-lights">
+                    <div class="taxi-500-headlight"></div>
+                    <div class="taxi-500-taillight"></div>
+                </div>
+
+                <div class="taxi-500-wheels">
+                    <div class="taxi-500-wheel back"></div>
+                    <div class="taxi-500-wheel front"></div>
+                </div>
+            </div>
+
+            <!-- Police car (chasing/stopping) -->
+            <div class="police-car" id="policeCar">
+                <div class="police-body">
+                    <div class="police-roof"></div>
+                    <div class="police-siren"></div>
+                    <div class="police-label">POLICE</div>
+                </div>
+
+                <div class="police-windows">
+                    <div class="police-window front"></div>
+                    <div class="police-window side"></div>
+                </div>
+
+                <div class="police-lights">
+                    <div class="police-headlight"></div>
+                    <div class="police-taillight"></div>
+                </div>
+
+                <div class="police-wheels">
+                    <div class="police-wheel back"></div>
+                    <div class="police-wheel front"></div>
+                </div>
+            </div>
+
+            <!-- Siren glow -->
+            <div class="siren-glow"></div>
+
+            <div class="hidden-button-500" id="homeButton500">
+                <a href="/" class="home-button-500">Go Back Home</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Visa knapp + extra animation efter att polisbilen har kommit fram
+        setTimeout(() => {
+            document.getElementById("homeButton500").classList.add("revealed");
+            document.getElementById("taxi500").classList.add("nervous");
+        }, 2600);
+    </script>
+
+</body>
+</html>

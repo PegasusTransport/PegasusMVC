@@ -1,3 +1,12 @@
 ﻿@{
-    Layout = "_Layout";
+    var path = Context.Request.Path.Value?.ToLower();
+
+    if (path != null && (path.Contains("/home/error404") || path.Contains("/home/error500")))
+    {
+        Layout = null;
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }

@@ -29,5 +29,16 @@ namespace Pegasus_MVC.Controllers
             Response.StatusCode = 404;
             return View();
         }
+
+        public IActionResult Error500()
+        {
+            Response.StatusCode = 500;
+            return View();
+        }
+
+        public IActionResult Error500Preview()
+        {
+            return View("Error500");
+        }
     }
 }
