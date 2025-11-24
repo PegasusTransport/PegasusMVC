@@ -123,17 +123,14 @@
             top: 8px;
         }
 
-        /* Topplinjen */
         .navbar-toggler-icon::before {
             top: 0;
         }
 
-        /* Bottenlinjen */
         .navbar-toggler-icon::after {
             top: 16px;
         }
 
-    /* När menyn är öppen → X-animation */
     .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
         top: 8px;
         transform: rotate(45deg);
